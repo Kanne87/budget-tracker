@@ -1,0 +1,25 @@
+{
+  "name": "budget-tracker",
+  "version": "1.0.0",
+  "description": "Keep Track of your Budget",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTIONN=false npm install --prefix client && npm run build --prefix client"
+  },
+  "author": "Kai Lohmann",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "concurrently": "^6.5.1",
+    "express": "^4.17.2",
+    "mongoose": "^6.1.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "proxy": "http://localhost:5000"
+}
