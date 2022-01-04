@@ -16,8 +16,10 @@ const db = require('./config/keys').mongoURI;
 // Verbinden zur MongoDB mit Mongoose
 mongoose
    .connect(db)      
-   .then(() => console.log('MongoDB ist verbunden...'))
-   .catch(err => console.log(err));
+   .then(() => console
+      .log('MongoDB ist verbunden...'))
+   .catch(err => console.log(err))
+;
 
 // Routes benutzen
 app.use('/api/budgets', budgets);
@@ -34,4 +36,6 @@ if(process.env.NODE_ENV === 'production') {
 
 const port = process.env.PORT || 5000;  // Weil wir zu Horoku deployen wollen wird ENTWEDER der Port von denen ODER 5000 benutzt.
 
-app.listen(port, () => console.log(`Server gestartet auf Port ${port}`));
+app.listen(port, () => console
+   .log(`Server gestartet auf Port ${port}`)
+);

@@ -4,6 +4,9 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
 import { getBudgets, deleteBudget, editBudget } from '../actions/budgetActions';
 import PropTypes from 'prop-types';
+import DeleteIcon from '@mui/icons-material/Delete';
+import '../App.css';
+
 
 class BudgetList extends Component {
    componentDidMount() {
@@ -15,8 +18,8 @@ class BudgetList extends Component {
    }
 
    onEditClick = (id) => {
-      this.props.editBudget(id);
-   }
+      
+   };
 
    render() {
       const { budgets } = this.props.budget;
@@ -28,6 +31,7 @@ class BudgetList extends Component {
                      <tr>
                         <th>
                            Aktion
+                           
                         </th>
                         <th>
                            Beschreibung
@@ -44,15 +48,13 @@ class BudgetList extends Component {
                      {budgets.map(({ _id, name, budget_amount, budget_intervall }) => (
                         <tr>
                            <th scope="row">
-                              <Button 
-                                 classnames="btn-warning"
-                                 color="danger"
-                                 size="sm"
-                                 style={{marginRight: '0.5rem'}}
-                                 onClick={this.onDeleteClick.bind(this, _id)}
-                              >
-                                 &times;
-                              </Button>
+                              <div className="topIconBadgeContainer">
+                                 <DeleteIcon 
+                                    style={{marginRight: '0.5rem'}}
+                                    onClick={this.onDeleteClick.bind(this, _id)}
+                                 />
+                                 <span className="topIconBadge">2</span>
+                              </div>
                               <Button 
                                  classnames="remove-btn"
                                  color="info"
@@ -76,6 +78,7 @@ class BudgetList extends Component {
                   </tbody>
                </Table> 
             </ListGroup>
+            
          </Container>
       );
    }

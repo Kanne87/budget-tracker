@@ -44,12 +44,14 @@ class BudgetModal extends Component {
          budget_submit: this.state.budget_submit
       }
       //Add item via addItem
-      if (newBudget.budget_submit === 'add') {
+      newBudget.budget_submit === 'add' ? this.props.addBudget(newBudget) : this.props.editBudget(newBudget);
+
+      /* if (newBudget.budget_submit === 'add') {
          this.props.addBudget(newBudget);
       } else if (newBudget.budget_submit === 'edit') {
          this.props.editBudget(newBudget);
       }
-      
+       */
       // close Modal
       this.toggle();
    }
@@ -59,14 +61,14 @@ class BudgetModal extends Component {
          <div>
             <Button
                color="dark"
-               style={{marginBotton: '2rem'}}
+               style={{marginTop: '1rem'}}
                onClick={this.toggle}
             >Add Budget</Button>
             <Modal
                isOpen={this.state.modal}
                toggle={this.toggle}
             >
-               <ModalHeader toggle={this.toggle}>Zum Budget hinzufügen</ModalHeader>
+               <ModalHeader toggle={this.toggle}>{this.state.budget_submit === 'add' ? 'Budget hinzufügen' : 'Budget ändern'}</ModalHeader>
                <ModalBody>
                   <Form onSubmit={this.onSubmit}>
                      <FormGroup>

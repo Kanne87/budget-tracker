@@ -8,9 +8,10 @@ const Budget = require('../../models/Budget')
 // @desc    Get All budgets
 // @access  Public
 router.get('/', (req, res) => {
-   Budget.find()
-   .sort({date: -1 })
-   .then(budget => res.json(budget))
+   Budget
+      .find()
+      .sort({date: -1 })
+      .then(budget => res.json(budget))
 });
 
 // @route   POST api/budgets

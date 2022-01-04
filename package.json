@@ -13,10 +13,13 @@
   "author": "Kai Lohmann",
   "license": "MIT",
   "dependencies": {
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^4.11.2",
     "body-parser": "^1.19.1",
     "concurrently": "^6.5.1",
     "express": "^4.17.2",
-    "mongoose": "^6.1.4"
+    "mongoose": "^6.1.4",
+    "react-router-dom": "^6.2.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"

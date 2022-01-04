@@ -1,6 +1,12 @@
+.appNavbar {
+  position: sticky;
+  top: 0;
+}
+
 .remove-btn {
   margin-right: 0.5rem;
   padding-left: 0.5rem;
+  
 }
 
 .fade-enter {
@@ -26,3 +32,65 @@
   background-color: black;
 }
 
+/* .topIconBadge {
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: -5px;
+  right: 5px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-style: 10px;
+} */
+
+.sidebar {
+  flex: 1;
+  height: calc(100vh - 50px);
+  background-color: #212529;
+  color: white;
+  
+  
+
+
+}
+.containerBar {
+  display: flex;
+}
+.mainPart {
+  flex: 4
+}
+
+.sidebarWrapper {
+  padding: 15px;
+}
+
+.sidebarTitle {
+  font-size: 18px
+}
+
+.sidebarList {
+  list-style: none;
+  padding-left: 10px;
+}
+
+.sidebarListItem {
+  cursor: pointer;
+}
+
+.sidebarListItem:active, .sidebarListItem:hover{
+  background-color:grey;
+  border-radius: 10px;
+}
+
+.budgetList {
+  -webkit-box-shadow: 0px 6px 10px 4px rgba(0,0,0,0.17); 
+box-shadow: 0px 6px 10px 4px rgba(0,0,0,0.17);
+}
+
+.monitor {
+  flex: 4
+}
