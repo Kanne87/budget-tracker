@@ -5,7 +5,9 @@ import {
   EDIT_BUDGET,
   DELETE_BUDGET,
   BUDGETS_LOADING,
+  SWITCH_PAGE
 } from "./types";
+import pages from "../pages/pages";
 
 export const getBudgets = () => (dispatch) => {
   dispatch(setBudgetsLoading());
@@ -49,3 +51,10 @@ export const setBudgetsLoading = () => {
     type: BUDGETS_LOADING,
   };
 };
+
+export const switchPage = (page) => {
+  return {
+    type: SWITCH_PAGE,
+    payload: page
+  };
+}

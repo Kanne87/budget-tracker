@@ -1,33 +1,30 @@
 import React, { Component } from "react";
-import { Provider } from "react-redux";
-import store from "./store";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { Container } from "reactstrap";
 import AppNavbar from "./components/AppNavbar";
 import Sidebar from "./components/Sidebar";
-import Home from "./pages/Home";
-import BudgetModal from "./components/BudgetModal";
-import { Container } from "reactstrap";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
+import Paginator from "./components/Paginator";
+import { Switch, Route } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 class App extends Component {
   render() {
     return (
-      <Provider store={store}>
-        <div className="App">
-          <AppNavbar className="appNavbar" />
-          <div className="containerBar">
-            <Sidebar />
+      <div className="App">
+        <AppNavbar className="appNavbar" />
+        <div className="containerBar">
+          <Sidebar />
+          <Container className="mainPart">
 
-            <Container className="mainPart">
-              <Home />
-            </Container>
-          </div>
+            
+            
+            <Paginator />
+            
+
+          </Container>
         </div>
-      </Provider>
+      </div>
     );
   }
 }
-
-export default App;
+export default App; 

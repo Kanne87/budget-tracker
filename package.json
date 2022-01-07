@@ -15,10 +15,15 @@
   "dependencies": {
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
+    "app": "^0.1.0",
     "body-parser": "^1.19.1",
     "concurrently": "^6.5.1",
+    "create": "^0.0.2",
     "express": "^4.17.2",
-    "mongoose": "^6.1.4",
+    "float": "^1.0.2",
+    "mongoose": "^6.1.5",
+    "mongoose-float": "^1.0.4",
+    "react": "^17.0.2",
     "react-router-dom": "^6.2.1"
   },
   "devDependencies": {

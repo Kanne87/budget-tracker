@@ -4,11 +4,14 @@ import {
   DELETE_BUDGET,
   BUDGETS_LOADING,
   EDIT_BUDGET,
+  SWITCH_PAGE
 } from "../actions/types";
+import pages from "../pages/pages";
 
 const initialState = {
   budgets: [],
   loading: false,
+  page: 1
 };
 
 export default function (state = initialState, action) {
@@ -35,12 +38,19 @@ export default function (state = initialState, action) {
     case EDIT_BUDGET:
       return {
         ...state,
-        budgets: [action.payload, ...state.budgets],
+        budgets: state.budgets.filter(
+          (budget) => budget._id !== action.payload
+        ),
       };
     case BUDGETS_LOADING:
       return {
         ...state,
         loading: true,
+      };
+      case SWITCH_PAGE:
+      return {
+        ...state,
+        page: pages(action.payload),
       };
     default:
       return state;
