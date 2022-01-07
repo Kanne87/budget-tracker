@@ -1,48 +1,45 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
-   Collapse,
-   Navbar,
-   NavbarToggler,
-   NavbarBrand,
-   Nav,
-   NavItem,
-   NavLink,
-   Container
-} from 'reactstrap';
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  Container,
+} from "reactstrap";
 
 class AppNavbar extends Component {
-   state = {
-      isOpen: false
-   }
+  state = {
+    isOpen: false,
+  };
 
-   toggle = () => {
-      this.setState({
-         isOpen: !this.state.isOpen
-      });
-   }
+  toggle = () => {
+    this.setState({
+      isOpen: !this.state.isOpen,
+    });
+  };
 
-   render() {
-      return (
-         <div>
-         <Navbar color="dark" dark expand="sm">
-            <Container>
-               <NavbarBrand href="/">Budget Tracker</NavbarBrand>
-               <NavbarToggler onClick={this.toggle} />
-               <Collapse isOpen={this.state.isOpen} navbar>
-                  <Nav className="ml-auto" navbar>
-                     <NavItem>
-                        <NavLink href="https://github.com/Kanne87">
-                           Github
-                        </NavLink>
-                     </NavItem>
-                  </Nav>
-               </Collapse>
-            </Container>
-         </Navbar>
+  render() {
+    return (
+      <div>
+        <Navbar color="dark" dark expand="sm">
+          <Container>
+            <NavbarBrand href="/">Budget Tracker</NavbarBrand>
+            <NavbarToggler onClick={this.toggle} />
+            <Collapse isOpen={this.state.isOpen} navbar>
+              <Nav className="ml-auto" navbar>
+                <NavItem>
+                  <NavLink href="https://github.com/Kanne87">Github</NavLink>
+                </NavItem>
+              </Nav>
+            </Collapse>
+          </Container>
+        </Navbar>
       </div>
-      );
-   }
-
+    );
+  }
 }
 
 export default AppNavbar;
