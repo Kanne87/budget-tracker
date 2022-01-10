@@ -1,17 +1,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const path = require('path');
+const config = require('config');
 
-const budgets = require('./routes/api/budgets');
+const path = require('path');
 
 const app = express();
 
 // Bodyparser Middleware
-app.use(bodyParser.json());
+app.use(express.json());
 
 // DB konfig
-const db = require('./config/keys').mongoURI;
+const db = config.get('mongoURI');
 
 // Verbinden zur MongoDB mit Mongoose
 mongoose
@@ -22,7 +21,8 @@ mongoose
 ;
 
 // Routes benutzen
-app.use('/api/budgets', budgets);
+app.use('/api/budgets', require('./routes/api/budgets'));
+app.use('/api/users', require('./routes/api/users'));
 
 // Serve static assets if in production
 if(process.env.NODE_ENV === 'production') {
