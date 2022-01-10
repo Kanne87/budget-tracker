@@ -34,7 +34,7 @@ class BudgetList extends Component {
             </thead>
             <tbody>
               {budgets.map(({ _id, name, budget_amount, budget_intervall }) => (
-                <tr>
+                <tr key={_id}>
                   <th scope="row">
                     <div className="topIconBadgeContainer">
                       <DeleteIcon
