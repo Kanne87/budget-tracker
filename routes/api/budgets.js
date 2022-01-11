@@ -1,6 +1,7 @@
 const express = require("express");
 const res = require("express/lib/response");
 const router = express.Router();
+const auth = require('../../middleware/auth');
 
 const Budget = require("../../models/Budget");
 
@@ -15,8 +16,8 @@ router.get("/", (req, res) => {
 
 // @route   POST api/budgets
 // @desc    Create an Budget
-// @access  Public
-router.post("/", (req, res) => {
+// @access  Private
+router.post("/", auth, (req, res) => {
   const newBudget = new Budget({
     name: req.body.name,
     budget_amount: req.body.budget_amount,
@@ -28,8 +29,8 @@ router.post("/", (req, res) => {
 
 // @route   DELETE api/items/:id
 // @desc    Delete an Item
-// @access  Public
-router.delete("/:id", (req, res) => {
+// @access  Private
+router.delete("/:id", auth, (req, res) => {
   Budget.findById(req.params.id)
     .then((budget) => budget.remove().then(() => res.json({ success: true })))
     .catch((err) => res.status(404).json({ success: false }));

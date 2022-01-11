@@ -1,5 +1,5 @@
 const express = require("express");
-const res = require("express/lib/response");
+
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const config = require("config");
@@ -21,7 +21,7 @@ router.post("/", (req, res) => {
     const newUser = new User({
       name,
       email,
-      password,
+      password
     });
 
     // Create salt & hash
@@ -43,8 +43,8 @@ router.post("/", (req, res) => {
                 user: {
                   id: user.id,
                   name: user.name,
-                  email: user.email,
-                },
+                  email: user.email
+                }
               });
             }
           );
