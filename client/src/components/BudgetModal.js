@@ -31,7 +31,6 @@ class BudgetModal extends Component {
 
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
-    console.log("change");
   };
 
   onSubmit = (e) => {

@@ -5,27 +5,39 @@ import {
   EDIT_BUDGET,
   DELETE_BUDGET,
   BUDGETS_LOADING,
-  SWITCH_PAGE
+  SWITCH_PAGE,
 } from "./types";
 import pages from "../pages/pages";
+import { tokenConfig } from "./authActions";
+import { returnErrors } from "./errorActions";
 
 export const getBudgets = () => (dispatch) => {
   dispatch(setBudgetsLoading());
-  axios.get("/api/budgets").then((res) =>
-    dispatch({
-      type: GET_BUDGETS,
-      payload: res.data,
-    })
-  );
+  axios
+    .get("/api/budgets")
+    .then((res) =>
+      dispatch({
+        type: GET_BUDGETS,
+        payload: res.data,
+      })
+    )
+    .catch((err) =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };
 
-export const deleteBudget = (id) => (dispatch) => {
-  axios.delete(`/api/budgets/${id}`).then((res) =>
-    dispatch({
-      type: DELETE_BUDGET,
-      payload: id,
-    })
-  );
+export const deleteBudget = (id) => (dispatch, getState) => {
+  axios
+    .delete(`/api/budgets/${id}`, tokenConfig(getState))
+    .then((res) =>
+      dispatch({
+        type: DELETE_BUDGET,
+        payload: id,
+      })
+    )
+    .catch((err) =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };
 
 export const editBudget = (id) => (dispatch) => {
@@ -37,13 +49,18 @@ export const editBudget = (id) => (dispatch) => {
   );
 };
 
-export const addBudget = (budget) => (dispatch) => {
-  axios.post("/api/budgets", budget).then((res) =>
-    dispatch({
-      type: ADD_BUDGET,
-      payload: res.data,
-    })
-  );
+export const addBudget = (budget) => (dispatch, getState) => {
+  axios
+    .post("/api/budgets", budget, tokenConfig(getState))
+    .then((res) =>
+      dispatch({
+        type: ADD_BUDGET,
+        payload: res.data,
+      })
+    )
+    .catch((err) =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };
 
 export const setBudgetsLoading = () => {
@@ -55,6 +72,6 @@ export const setBudgetsLoading = () => {
 export const switchPage = (page) => {
   return {
     type: SWITCH_PAGE,
-    payload: page
+    payload: page,
   };
-}
+};

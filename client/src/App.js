@@ -6,8 +6,13 @@ import Paginator from "./components/Paginator";
 import { Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import store from "./store";
+import { loadUser } from './actions/authActions';
 
 class App extends Component {
+  componentDidMount() {
+    store.dispatch(loadUser());
+  }
   render() {
     return (
       <div className="App">

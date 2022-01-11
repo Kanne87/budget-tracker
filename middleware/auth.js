@@ -6,7 +6,7 @@ function auth(req, res, next) {
 
   // Token checken
   if (!token)
-    res.status(401).json({
+    return res.status(401).json({
       msg: "Benutzer ist nicht berechtigt",
     });
   try {

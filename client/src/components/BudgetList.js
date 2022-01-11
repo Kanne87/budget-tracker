@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Container, ListGroup, ListGroupItem, Button, Table } from "reactstrap";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
 import { getBudgets, deleteBudget, editBudget } from "../actions/budgetActions";
 import PropTypes from "prop-types";
@@ -41,8 +40,8 @@ class BudgetList extends Component {
                         style={{ marginRight: "0.5rem" }}
                         onClick={this.onDeleteClick.bind(this, _id)}
                       />
-                      <span className="topIconBadge">2</span>
-                    </div>
+                      
+                    
                     <Button
                       classnames="remove-btn"
                       color="info"
@@ -51,6 +50,7 @@ class BudgetList extends Component {
                     >
                       &#xe019;
                     </Button>
+                    </div>
                   </th>
                   <td>{name}</td>
                   <td>{budget_amount}</td>
