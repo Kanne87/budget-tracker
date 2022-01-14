@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Home from "../pages/Home";
 import Monitor from "../pages/Monitor";
-import openBudget from "../pages/pages";
 
 class Paginator extends Component {
   render() {

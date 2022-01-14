@@ -4,7 +4,9 @@ import { connect } from "react-redux";
 import { getBudgets, deleteBudget, editBudget } from "../actions/budgetActions";
 import PropTypes from "prop-types";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { FaEdit } from "react-icons/fa";
 import "../App.css";
+import calcCurrency from "../actions/formatter";
 
 class BudgetList extends Component {
   componentDidMount() {
@@ -15,7 +17,13 @@ class BudgetList extends Component {
     this.props.deleteBudget(id);
   };
 
-  onEditClick = (id) => {};
+  formatCurrency = (amount) => {
+    return amount / 100;
+  };
+
+  onEditClick = (id) => {
+    
+  };
 
   render() {
     const { budgets } = this.props.budget;
@@ -27,8 +35,8 @@ class BudgetList extends Component {
               <tr>
                 <th>Aktion</th>
                 <th>Beschreibung</th>
-                <th>Betrag</th>
                 <th>Intervall</th>
+                <th className="currencyText">Betrag</th>
               </tr>
             </thead>
             <tbody>
@@ -39,22 +47,21 @@ class BudgetList extends Component {
                       <DeleteIcon
                         style={{ marginRight: "0.5rem" }}
                         onClick={this.onDeleteClick.bind(this, _id)}
+                        className="deleteButton"
                       />
-                      
-                    
-                    <Button
-                      classnames="remove-btn"
-                      color="info"
-                      size="sm"
-                      onClick={this.onEditClick.bind(this, _id)}
-                    >
-                      &#xe019;
-                    </Button>
+
+                      <FaEdit
+                        className="deleteButton"
+                        size={20}
+                        onClick={this.onEditClick.bind(this, _id)}
+                      ></FaEdit>
                     </div>
                   </th>
                   <td>{name}</td>
-                  <td>{budget_amount}</td>
                   <td>{budget_intervall}</td>
+                  <td className="currencyText">
+                    {calcCurrency(budget_amount / 100)}
+                  </td>
                 </tr>
               ))}
             </tbody>

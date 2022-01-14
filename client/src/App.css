@@ -6,7 +6,6 @@
 .remove-btn {
   margin-right: 0.5rem;
   padding-left: 0.5rem;
-  
 }
 
 .fade-enter {
@@ -20,7 +19,6 @@
 
 .fade-exit {
   opacity: 1;
-
 }
 
 .fade-exit-active {
@@ -52,16 +50,13 @@
   height: calc(100vh - 50px);
   background-color: #212529;
   color: white;
-  
-  
-
-
+  min-width: fit-content;
 }
 .containerBar {
   display: flex;
 }
 .mainPart {
-  flex: 4
+  flex: 4;
 }
 
 .sidebarWrapper {
@@ -69,7 +64,7 @@
 }
 
 .sidebarTitle {
-  font-size: 18px
+  font-size: 18px;
 }
 
 .sidebarList {
@@ -81,24 +76,64 @@
   cursor: pointer;
 }
 
-.sidebarListItem:active, .sidebarListItem:hover{
-  background-color:grey;
+.sidebarListItem:active,
+.sidebarListItem:hover {
+  background-color: grey;
   border-radius: 10px;
 }
 
 .budgetList {
-  -webkit-box-shadow: 0px 6px 10px 4px rgba(0,0,0,0.17); 
-box-shadow: 0px 6px 10px 4px rgba(0,0,0,0.17);
+  -webkit-box-shadow: 0px 6px 10px 4px rgba(0, 0, 0, 0.17);
+  box-shadow: 0px 6px 10px 4px rgba(0, 0, 0, 0.17);
 }
 
 .monitor {
-  flex: 4
+  flex: 4;
 }
 
 .navCollapse {
- float: right;
+  float: right;
+  padding-right: 40px;
 }
 
 .navbar-splash {
   padding: 0rem;
+}
+
+.deleteButton {
+  cursor: pointer;
+}
+
+.navbarToggler {
+  float: right;
+}
+
+.currencyInput {
+  display: block;
+
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.currencyText {
+  text-align: right;
+}
+
+.addModal {
+  max-width: 600px !important;
+  margin-top: 1rem;
+}
+
+.addButton {
+ padding: 1rem;
 }

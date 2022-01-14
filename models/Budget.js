@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
-var Float = require('mongoose-float').loadType(mongoose);
 const Schema = mongoose.Schema;
+require('mongoose-currency').loadType(mongoose);
+var Currency = mongoose.Types.Currency;
 
 const BudgetSchema = new Schema({
    name: {
@@ -12,12 +13,20 @@ const BudgetSchema = new Schema({
       default: Date.now
    },
    budget_amount: {
-      type: Float,
+      type: Currency,
       default: 0
    },
    budget_intervall: {
       type: String,
       default: 'Monat'
+   },
+   budget_start: {
+      type: Date,
+      default: Date.now
+   },
+   budget_end: {
+      type: Date,
+      default: ""
    }
 });
 

@@ -11,6 +11,7 @@ import pages from "../pages/pages";
 const initialState = {
   budgets: [],
   loading: false,
+  edit: true,
   page: 1
 };
 

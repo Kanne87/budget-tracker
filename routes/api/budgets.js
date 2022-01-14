@@ -12,6 +12,7 @@ router.get("/", (req, res) => {
   Budget.find()
     .sort({ date: -1 })
     .then((budget) => res.json(budget));
+    
 });
 
 // @route   POST api/budgets
@@ -22,6 +23,8 @@ router.post("/", auth, (req, res) => {
     name: req.body.name,
     budget_amount: req.body.budget_amount,
     budget_intervall: req.body.budget_intervall,
+    budget_start: req.body.budget_start,
+    budget_end: req.body.budget_end,
   });
 
   newBudget.save().then((budget) => res.json(budget));
@@ -40,8 +43,13 @@ router.delete("/:id", auth, (req, res) => {
 // @desc    Edit an Item
 // @access  Public
 router.put("/:id", (req, res) => {
+  const editBudget = new Budget({
+    name: req.body.name,
+    budget_amount: req.body.budget_amount,
+    budget_intervall: req.body.budget_intervall,
+  });
   Budget.findById(req.params.id)
-    .then((budget) => budget.remove().then(() => res.json({ success: true })))
+    .then((budget) => budget.update(editBudget).then(() => res.json({ success: true })))
     .catch((err) => res.status(404).json({ success: false }));
 });
 
