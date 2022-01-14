@@ -5,7 +5,7 @@ import BudgetModal from "../components/BudgetModal";
 function Home() {
   return (
     <div className="home">
-      <BudgetModal />
+      <BudgetModal mode="add"/>
       <div className="budgetList">
         <BudgetList />
       </div>

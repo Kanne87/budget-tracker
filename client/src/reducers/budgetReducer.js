@@ -40,7 +40,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         budgets: state.budgets.filter(
-          (budget) => budget._id !== action.payload
+          (budget) => budget._id === action.payload
         ),
       };
     case BUDGETS_LOADING:

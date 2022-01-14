@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { getBudgets, deleteBudget, editBudget } from "../actions/budgetActions";
 import PropTypes from "prop-types";
 import DeleteIcon from "@mui/icons-material/Delete";
+import BudgetModal from "./BudgetModal";
 import { FaEdit } from "react-icons/fa";
 import "../App.css";
 import calcCurrency from "../actions/formatter";
@@ -40,7 +41,7 @@ class BudgetList extends Component {
               </tr>
             </thead>
             <tbody>
-              {budgets.map(({ _id, name, budget_amount, budget_intervall }) => (
+              {budgets.map(({ _id, name, budget_amount, budget_intervall, budget_start, budget_end }) => (
                 <tr key={_id}>
                   <th scope="row">
                     <div className="topIconBadgeContainer">
@@ -49,12 +50,12 @@ class BudgetList extends Component {
                         onClick={this.onDeleteClick.bind(this, _id)}
                         className="deleteButton"
                       />
-
-                      <FaEdit
+                      <BudgetModal mode="edit" editId={_id} editName={name} editAmount={budget_amount} editIntervall={budget_intervall} editStart={budget_start} editEnd={budget_end} />
+                      {/* <FaEdit
                         className="deleteButton"
                         size={20}
                         onClick={this.onEditClick.bind(this, _id)}
-                      ></FaEdit>
+                      ></FaEdit> */}
                     </div>
                   </th>
                   <td>{name}</td>

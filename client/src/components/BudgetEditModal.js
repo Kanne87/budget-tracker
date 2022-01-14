@@ -51,7 +51,6 @@ class BudgetEditModal extends Component {
       budget_submit: this.state.budget_submit,
     };
 
-
     //Add item via addItem
     newBudget.budget_submit === "add"
       ? this.props.addBudget(newBudget)
@@ -71,10 +70,10 @@ class BudgetEditModal extends Component {
     return (
       <div>
         <FaEdit
-                        className="deleteButton"
-                        size={20}
-                        onClick={this.onEditClick.bind(this, _id)}
-                      ></FaEdit>
+          className="deleteButton"
+          size={20}
+          onClick={this.onEditClick.bind(this, _id)}
+        ></FaEdit>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>
             {this.state.budget_submit === "add"
@@ -84,7 +83,7 @@ class BudgetEditModal extends Component {
           <ModalBody>
             <Form onSubmit={this.onSubmit}>
               <FormGroup>
-              <Label for="id">ID</Label>
+                <Label for="id">ID</Label>
                 <Input
                   type="text"
                   name="id"

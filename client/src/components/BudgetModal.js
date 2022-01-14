@@ -17,18 +17,20 @@ import { connect } from "react-redux";
 import { addBudget } from "../actions/budgetActions";
 import CurrencyInput from "react-currency-input-field";
 import { format } from "date-fns";
+import { FaEdit } from "react-icons/fa";
 
 class BudgetModal extends Component {
+  
   state = {
-    id: "",
+    id: this.props.editId,
     modal: false,
-    name: "",
-    budget_amount: 0,
-    budget_intervall: "Monat",
-    budget_submit: "add",
-    budget_start: format(new Date(), "yyyy-MM-dd"),
-    budget_end: "",
-    checkEnd: false,
+    name: this.props.editName || "",
+    budget_amount: (this.props.editAmount /100) || 0,
+    budget_intervall: this.props.editIntervall ||"Monat",
+    budget_submit: this.props.mode,
+    budget_start: new Date(this.props.editStart) || format(new Date(), "yyyy-MM-dd"),
+    budget_end: this.props.editEnd || "",
+    checkEnd: false
   };
 
   toggle = () => {
@@ -36,6 +38,7 @@ class BudgetModal extends Component {
       modal: !this.state.modal,
       checkEnd: false,
     });
+    console.log(this.state.budget_start);
   };
   toggleEnd = () => {
     this.setState({
@@ -60,35 +63,26 @@ class BudgetModal extends Component {
       budget_start: this.state.budget_start,
       budget_end: this.state.budget_end,
     };
-    
-    
 
     //Add item via addItem
     newBudget.budget_submit === "add"
       ? this.props.addBudget(newBudget)
       : this.props.editBudget(newBudget);
-
-    /* if (newBudget.budget_submit === 'add') {
-         this.props.addBudget(newBudget);
-      } else if (newBudget.budget_submit === 'edit') {
-         this.props.editBudget(newBudget);
-      }
-       */
-    // close Modal
     this.toggle();
   };
+  
 
   render() {
     return (
-      <div>
-        <div className="addButton">
-        <Button
-          color="dark"
-          
-          onClick={this.toggle}
-        >
-          Add Budget
-        </Button></div>
+      <>
+        {this.state.budget_submit === "add" ? (
+          <Button className="deleteButton" style={{ marginTop: "1rem"}}color="dark" onClick={this.toggle}>
+            Hinzufügen
+          </Button>
+        ) : (
+          <FaEdit className="deleteButton" size={20} onClick={this.toggle}></FaEdit>
+        )}
+
         <Modal
           className="addModal"
           isOpen={this.state.modal}
@@ -97,7 +91,7 @@ class BudgetModal extends Component {
           <ModalHeader toggle={this.toggle}>
             {this.state.budget_submit === "add"
               ? "Budget hinzufügen"
-              : "Budget ändern"}
+              : ["Budget ID ", this.state.id, " bearbeiten"] }
           </ModalHeader>
           <ModalBody>
             <Form onSubmit={this.onSubmit}>
@@ -107,7 +101,8 @@ class BudgetModal extends Component {
                   type="text"
                   name="name"
                   id="budget"
-                  placeholder="Beschreibung hinzufügen"
+                  defaultValue={this.state.name}
+                  placeholder="BEschreibung eingeben"
                   onChange={this.onChange}
                 />
                 <Row>
@@ -124,6 +119,7 @@ class BudgetModal extends Component {
                         placeholder="Betrag eingeben"
                         name="budget_amount"
                         id="budget_amount"
+                        defaultValue={this.state.budget_amount}
                         onChange={this.onChange}
                       />
                     </InputGroup>
@@ -134,6 +130,7 @@ class BudgetModal extends Component {
                       id="budget_intervall"
                       name="budget_intervall"
                       type="select"
+                      defaultValue={this.state.budget_intervall}
                       onChange={this.onChange}
                     >
                       <option>Monat</option>
@@ -150,9 +147,11 @@ class BudgetModal extends Component {
                     <InputGroup>
                       <Input
                         type="date"
-                        defaultValue={new Date().now}
+                        
                         name="budget_start"
                         id="budget_start"
+                        defaultValue={this.state.budget_start}
+                        
                         onChange={this.onChange}
                       />
                     </InputGroup>
@@ -174,8 +173,6 @@ class BudgetModal extends Component {
                       </InputGroupText>
                       <Input
                         type="date"
-                        
-                        
                         name="budget_end"
                         id="budget_end"
                         onChange={this.onChange}
@@ -183,14 +180,6 @@ class BudgetModal extends Component {
                         disabled={this.state.checkEnd === false ? true : false}
                       />
                     </InputGroup>
-                    {/* <Input
-                      type="date"
-                      placeholder="Startdatum eingeben"
-                      name="budget_end"
-                      id="budget_end"
-                      placeholder="Enddatum"
-                      onChange={this.onChange}
-                    ></Input> */}
                   </Col>
                 </Row>
 
@@ -201,7 +190,7 @@ class BudgetModal extends Component {
             </Form>
           </ModalBody>
         </Modal>
-      </div>
+      </>
     );
   }
 }
