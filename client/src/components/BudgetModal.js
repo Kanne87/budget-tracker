@@ -61,7 +61,6 @@ class BudgetModal extends Component {
       modal: !this.state.modal,
       checkEnd: false,
     });
-    console.log(this.state.id);
   };
 
   toggleEnd = () => {
@@ -91,7 +90,6 @@ class BudgetModal extends Component {
       this.props.addBudget(newBudget);
     }
     if (this.state.budget_submit === "edit") {
-      console.log(this.state.budget_amount);
       const editBudget = {
         _id: this.state.id,
         name: this.state.name,
@@ -102,7 +100,6 @@ class BudgetModal extends Component {
         budget_start: this.state.budget_start,
         budget_end: this.state.budget_end,
       };
-      console.log(editBudget);
       this.props.editBudget(editBudget);
     }
     //Add item via addItem

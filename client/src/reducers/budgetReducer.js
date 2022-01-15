@@ -36,7 +36,6 @@ export default function (state = initialState, action) {
       );
       
       if (index > -1) {
-        console.log(action.payload);
         return {
           ...state,
           budgets: [
