@@ -43,16 +43,17 @@ export const deleteBudget = (id) => (dispatch, getState) => {
 
 export const editBudget = (budget) => (dispatch, getState) => {
   console.log(budget);
-  axios.put(`/api/budgets/${budget.id}`, budget, tokenConfig(getState))
+  axios.put(`/api/budgets/${budget._id}`, budget, tokenConfig(getState))
   
   .then((res) =>
     dispatch({
       type: EDIT_BUDGET,
-      payload: res.data,
+      payload: budget,
     })
+    
   ).catch((err) =>
   dispatch(returnErrors(err.response.data, err.response.status))
-);;
+);
 };
 
 export const addBudget = (budget) => (dispatch, getState) => {

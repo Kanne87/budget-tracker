@@ -4,7 +4,7 @@ import {
   DELETE_BUDGET,
   BUDGETS_LOADING,
   EDIT_BUDGET,
-  SWITCH_PAGE
+  SWITCH_PAGE,
 } from "../actions/types";
 import pages from "../pages/pages";
 
@@ -12,7 +12,7 @@ const initialState = {
   budgets: [],
   loading: false,
   edit: true,
-  page: 1
+  page: 1,
 };
 
 export default function (state = initialState, action) {
@@ -31,12 +31,23 @@ export default function (state = initialState, action) {
         ),
       };
     case EDIT_BUDGET:
-      return {
-        ...state,
-        budgets: [...state.budgets, ...action.payload]
+      const index = state.budgets.findIndex(
+        (budget) => budget._id === action.payload._id
+      );
+      
+      if (index > -1) {
+        console.log(action.payload);
+        return {
+          ...state,
+          budgets: [
+            ...state.budgets.slice(0, index),
+            action.payload,
+            ...state.budgets.slice(index + 1),
+        ]
+        };
+        
       };
     case ADD_BUDGET:
-      
       return {
         ...state,
         budgets: [action.payload, ...state.budgets],
@@ -46,7 +57,7 @@ export default function (state = initialState, action) {
         ...state,
         loading: true,
       };
-      case SWITCH_PAGE:
+    case SWITCH_PAGE:
       return {
         ...state,
         page: pages(action.payload),

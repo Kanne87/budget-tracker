@@ -71,6 +71,7 @@ class BudgetModal extends Component {
   };
 
   onChange = (e) => {
+    
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -90,16 +91,18 @@ class BudgetModal extends Component {
       this.props.addBudget(newBudget);
     }
     if (this.state.budget_submit === "edit") {
+      console.log(this.state.budget_amount);
       const editBudget = {
-        id: this.state.id,
+        _id: this.state.id,
         name: this.state.name,
-        budget_amount: this.state.budget_amount * 100,
+        budget_amount: parseFloat(this.state.budget_amount.replace(/,/g, "."))
+        .toFixed(2) * 100,
         budget_intervall: this.state.budget_intervall,
         budget_submit: this.state.budget_submit,
         budget_start: this.state.budget_start,
         budget_end: this.state.budget_end,
       };
-      console.log(editBudget.id);
+      console.log(editBudget);
       this.props.editBudget(editBudget);
     }
     //Add item via addItem

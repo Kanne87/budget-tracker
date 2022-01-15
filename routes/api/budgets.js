@@ -43,7 +43,7 @@ router.delete("/:id", auth, (req, res) => {
 // @access  Public
 router.put("/:id", auth, (req, res) => {
   const id = req.params.id;
-
+  console.log(req.params.budget_amount);
   const editBudget = new Budget({
     _id: id,
     name: req.body.name,
@@ -52,6 +52,7 @@ router.put("/:id", auth, (req, res) => {
     budget_start: req.body.budget_start,
     budget_end: req.body.budget_end,
   });
+  
   Budget.findByIdAndUpdate(id, editBudget)
   .then((budget) => res.json(budget));
 });

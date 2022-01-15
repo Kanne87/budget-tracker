@@ -7,7 +7,7 @@ function Home() {
     <div className="home">
       <BudgetModal mode="add"/>
       <div className="budgetList">
-        <BudgetList />
+        <BudgetList key="2"/>
       </div>
     </div>
   );
