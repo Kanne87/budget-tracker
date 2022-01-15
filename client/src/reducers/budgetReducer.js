@@ -30,18 +30,16 @@ export default function (state = initialState, action) {
           (budget) => budget._id !== action.payload
         ),
       };
-    case ADD_BUDGET:
-      return {
-        ...state,
-        budgets: [action.payload, ...state.budgets],
-      };
-
     case EDIT_BUDGET:
       return {
         ...state,
-        budgets: state.budgets.filter(
-          (budget) => budget._id === action.payload
-        ),
+        budgets: [...state.budgets, ...action.payload]
+      };
+    case ADD_BUDGET:
+      
+      return {
+        ...state,
+        budgets: [action.payload, ...state.budgets],
       };
     case BUDGETS_LOADING:
       return {

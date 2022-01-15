@@ -27,6 +27,7 @@ export const getBudgets = () => (dispatch) => {
 };
 
 export const deleteBudget = (id) => (dispatch, getState) => {
+  console.log(id);
   axios
     .delete(`/api/budgets/${id}`, tokenConfig(getState))
     .then((res) =>
@@ -40,13 +41,18 @@ export const deleteBudget = (id) => (dispatch, getState) => {
     );
 };
 
-export const editBudget = (id) => (dispatch) => {
-  axios.put(`/api/budgets/${id}`).then((res) =>
+export const editBudget = (budget) => (dispatch, getState) => {
+  console.log(budget);
+  axios.put(`/api/budgets/${budget.id}`, budget, tokenConfig(getState))
+  
+  .then((res) =>
     dispatch({
       type: EDIT_BUDGET,
-      payload: id,
+      payload: res.data,
     })
-  );
+  ).catch((err) =>
+  dispatch(returnErrors(err.response.data, err.response.status))
+);;
 };
 
 export const addBudget = (budget) => (dispatch, getState) => {

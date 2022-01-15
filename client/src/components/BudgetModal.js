@@ -47,8 +47,11 @@ class BudgetModal extends Component {
         name: budgetEdit.name,
         budget_amount: budgetEdit.budget_amount / 100,
         budget_intervall: budgetEdit.budget_intervall,
-        budget_start: budgetEdit.budget_start.substr(0,10),
-        budget_end: budgetEdit.budget_end !== null ? budgetEdit.budget_end.substr(0,10) : null
+        budget_start: budgetEdit.budget_start.substr(0, 10),
+        budget_end:
+          budgetEdit.budget_end !== null
+            ? budgetEdit.budget_end.substr(0, 10)
+            : null,
       });
     }
   };
@@ -58,7 +61,7 @@ class BudgetModal extends Component {
       modal: !this.state.modal,
       checkEnd: false,
     });
-    console.log(this.state.budget_end);
+    console.log(this.state.id);
   };
 
   toggleEnd = () => {
@@ -73,22 +76,34 @@ class BudgetModal extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-
-    const newBudget = {
-      name: this.state.name,
-      budget_amount: parseFloat(
-        this.state.budget_amount.replace(/,/g, ".")
-      ).toFixed(2),
-      budget_intervall: this.state.budget_intervall,
-      budget_submit: this.state.budget_submit,
-      budget_start: this.state.budget_start,
-      budget_end: this.state.budget_end,
-    };
-
+    if (this.state.budget_submit === "add") {
+      const newBudget = {
+        name: this.state.name,
+        budget_amount: parseFloat(
+          this.state.budget_amount.replace(/,/g, ".")
+        ).toFixed(2),
+        budget_intervall: this.state.budget_intervall,
+        budget_submit: this.state.budget_submit,
+        budget_start: this.state.budget_start,
+        budget_end: this.state.budget_end,
+      };
+      this.props.addBudget(newBudget);
+    }
+    if (this.state.budget_submit === "edit") {
+      const editBudget = {
+        id: this.state.id,
+        name: this.state.name,
+        budget_amount: this.state.budget_amount * 100,
+        budget_intervall: this.state.budget_intervall,
+        budget_submit: this.state.budget_submit,
+        budget_start: this.state.budget_start,
+        budget_end: this.state.budget_end,
+      };
+      console.log(editBudget.id);
+      this.props.editBudget(editBudget);
+    }
     //Add item via addItem
-    newBudget.budget_submit === "add"
-      ? this.props.addBudget(newBudget)
-      : this.props.editBudget(newBudget);
+
     this.toggle();
   };
 
@@ -212,7 +227,7 @@ class BudgetModal extends Component {
                 </Row>
 
                 <Button color="dark" style={{ marginTop: "2rem" }} block>
-                  Add Budget
+                  {this.state.budget_submit === "add" ? "Hinzufügen" : "Ändern"}
                 </Button>
               </FormGroup>
             </Form>
@@ -227,4 +242,4 @@ const mapStateToProps = (state) => ({
   budget: state.budget,
 });
 
-export default connect(mapStateToProps, { addBudget })(BudgetModal);
+export default connect(mapStateToProps, { addBudget, editBudget })(BudgetModal);

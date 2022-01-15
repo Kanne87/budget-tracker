@@ -1,7 +1,7 @@
 const express = require("express");
 const res = require("express/lib/response");
 const router = express.Router();
-const auth = require('../../middleware/auth');
+const auth = require("../../middleware/auth");
 
 const Budget = require("../../models/Budget");
 
@@ -12,7 +12,6 @@ router.get("/", (req, res) => {
   Budget.find()
     .sort({ date: -1 })
     .then((budget) => res.json(budget));
-    
 });
 
 // @route   POST api/budgets
@@ -42,15 +41,19 @@ router.delete("/:id", auth, (req, res) => {
 // @route   EDIT api/items/:id
 // @desc    Edit an Item
 // @access  Public
-router.put("/:id", (req, res) => {
+router.put("/:id", auth, (req, res) => {
+  const id = req.params.id;
+
   const editBudget = new Budget({
+    _id: id,
     name: req.body.name,
     budget_amount: req.body.budget_amount,
     budget_intervall: req.body.budget_intervall,
+    budget_start: req.body.budget_start,
+    budget_end: req.body.budget_end,
   });
-  Budget.findById(req.params.id)
-    .then((budget) => budget.update(editBudget).then(() => res.json({ success: true })))
-    .catch((err) => res.status(404).json({ success: false }));
+  Budget.findByIdAndUpdate(id, editBudget)
+  .then((budget) => res.json(budget));
 });
 
 module.exports = router;
