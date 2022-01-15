@@ -14,23 +14,43 @@ import {
   Col,
 } from "reactstrap";
 import { connect } from "react-redux";
-import { addBudget } from "../actions/budgetActions";
+import { addBudget, editBudget } from "../actions/budgetActions";
 import CurrencyInput from "react-currency-input-field";
 import { format } from "date-fns";
 import { FaEdit } from "react-icons/fa";
 
 class BudgetModal extends Component {
-  
+  componentDidMount = () => {
+    this.setEdit();
+  };
+
   state = {
     id: this.props.editId,
     modal: false,
-    name: this.props.editName || "",
-    budget_amount: (this.props.editAmount /100) || 0,
-    budget_intervall: this.props.editIntervall ||"Monat",
+    name: "",
+    budget_amount: 0,
+    budget_intervall: "Monat",
     budget_submit: this.props.mode,
-    budget_start: new Date(this.props.editStart) || format(new Date(), "yyyy-MM-dd"),
-    budget_end: this.props.editEnd || "",
-    checkEnd: false
+    budget_start: format(new Date(), "yyyy-MM-dd"),
+    budget_end: "",
+    checkEnd: false,
+  };
+
+  setEdit = () => {
+    if (this.state.budget_submit === "edit") {
+      const { budgets } = this.props.budget;
+      const budgetEditArray = budgets.filter((budget) => {
+        return budget._id === this.props.editId;
+      });
+      const budgetEdit = budgetEditArray[0];
+      this.setState({
+        name: budgetEdit.name,
+        budget_amount: budgetEdit.budget_amount / 100,
+        budget_intervall: budgetEdit.budget_intervall,
+        budget_start: budgetEdit.budget_start.substr(0,10),
+        budget_end: budgetEdit.budget_end !== null ? budgetEdit.budget_end.substr(0,10) : null
+      });
+    }
   };
 
   toggle = () => {
@@ -38,8 +58,9 @@ class BudgetModal extends Component {
       modal: !this.state.modal,
       checkEnd: false,
     });
-    console.log(this.state.budget_start);
+    console.log(this.state.budget_end);
   };
+
   toggleEnd = () => {
     this.setState({
       checkEnd: !this.state.checkEnd,
@@ -70,17 +91,25 @@ class BudgetModal extends Component {
       : this.props.editBudget(newBudget);
     this.toggle();
   };
-  
 
   render() {
     return (
       <>
         {this.state.budget_submit === "add" ? (
-          <Button className="deleteButton" style={{ marginTop: "1rem"}}color="dark" onClick={this.toggle}>
+          <Button
+            className="deleteButton"
+            style={{ marginTop: "1rem" }}
+            color="dark"
+            onClick={this.toggle}
+          >
             Hinzufügen
           </Button>
         ) : (
-          <FaEdit className="deleteButton" size={20} onClick={this.toggle}></FaEdit>
+          <FaEdit
+            className="deleteButton"
+            size={20}
+            onClick={this.toggle}
+          ></FaEdit>
         )}
 
         <Modal
@@ -91,7 +120,7 @@ class BudgetModal extends Component {
           <ModalHeader toggle={this.toggle}>
             {this.state.budget_submit === "add"
               ? "Budget hinzufügen"
-              : ["Budget ID ", this.state.id, " bearbeiten"] }
+              : ["Budget ID ", this.state.id, " bearbeiten"]}
           </ModalHeader>
           <ModalBody>
             <Form onSubmit={this.onSubmit}>
@@ -147,11 +176,9 @@ class BudgetModal extends Component {
                     <InputGroup>
                       <Input
                         type="date"
-                        
                         name="budget_start"
                         id="budget_start"
                         defaultValue={this.state.budget_start}
-                        
                         onChange={this.onChange}
                       />
                     </InputGroup>
@@ -177,6 +204,7 @@ class BudgetModal extends Component {
                         id="budget_end"
                         onChange={this.onChange}
                         placeholder="Check it out"
+                        defaultValue={this.state.budget_end}
                         disabled={this.state.checkEnd === false ? true : false}
                       />
                     </InputGroup>

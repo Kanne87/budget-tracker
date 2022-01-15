@@ -50,7 +50,7 @@ class BudgetList extends Component {
                         onClick={this.onDeleteClick.bind(this, _id)}
                         className="deleteButton"
                       />
-                      <BudgetModal mode="edit" editId={_id} editName={name} editAmount={budget_amount} editIntervall={budget_intervall} editStart={budget_start} editEnd={budget_end} />
+                      <BudgetModal mode="edit" editId={_id} />
                       {/* <FaEdit
                         className="deleteButton"
                         size={20}
