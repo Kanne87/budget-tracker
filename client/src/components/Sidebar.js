@@ -29,6 +29,8 @@ switchPage = (e) => {
                 <ShowChartIcon /> Monitor
               </li>
             </ul>
+            <br />
+            
           </div>
         </div>
       </div>

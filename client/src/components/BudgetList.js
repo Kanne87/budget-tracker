@@ -22,9 +22,7 @@ class BudgetList extends Component {
     return amount / 100;
   };
 
-  onEditClick = (id) => {
-    
-  };
+  onEditClick = (id) => {};
 
   render() {
     const { budgets } = this.props.budget;
@@ -41,30 +39,39 @@ class BudgetList extends Component {
               </tr>
             </thead>
             <tbody>
-              {budgets.map(({ _id, name, budget_amount, budget_intervall, budget_start, budget_end }) => (
-                <tr key={_id}>
-                  <th scope="row">
-                    <div className="topIconBadgeContainer">
-                      <DeleteIcon
-                        style={{ marginRight: "0.5rem" }}
-                        onClick={this.onDeleteClick.bind(this, _id)}
-                        className="deleteButton"
-                      />
-                      <BudgetModal mode="edit" editId={_id} key={_id} />
-                      {/* <FaEdit
+              {budgets.map(
+                ({
+                  _id,
+                  name,
+                  budget_amount,
+                  budget_intervall,
+                  budget_start,
+                  budget_end,
+                }) => (
+                  <tr key={_id}>
+                    <th scope="row">
+                      <div className="topIconBadgeContainer">
+                        <DeleteIcon
+                          style={{ marginRight: "0.5rem" }}
+                          onClick={this.onDeleteClick.bind(this, _id)}
+                          className="deleteButton"
+                        />
+                        <BudgetModal mode="edit" editId={_id} key={_id} />
+                        {/* <FaEdit
                         className="deleteButton"
                         size={20}
                         onClick={this.onEditClick.bind(this, _id)}
                       ></FaEdit> */}
-                    </div>
-                  </th>
-                  <td>{name}</td>
-                  <td>{budget_intervall}</td>
-                  <td className="currencyText">
-                    {calcCurrency(budget_amount / 100)}
-                  </td>
-                </tr>
-              ))}
+                      </div>
+                    </th>
+                    <td>{name}</td>
+                    <td>{budget_intervall}</td>
+                    <td className="currencyText">
+                      {calcCurrency(budget_amount / 100)}
+                    </td>
+                  </tr>
+                )
+              )}
             </tbody>
           </Table>
         </ListGroup>

@@ -51,9 +51,7 @@ router.put("/:id", auth, (req, res) => {
     budget_start: req.body.budget_start,
     budget_end: req.body.budget_end,
   });
-  
-  Budget.findByIdAndUpdate(id, editBudget)
-  .then((budget) => res.json(budget));
+  Budget.findByIdAndUpdate(id, editBudget).then((budget) => res.json(budget));
 });
 
 module.exports = router;

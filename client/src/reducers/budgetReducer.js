@@ -34,7 +34,6 @@ export default function (state = initialState, action) {
       const index = state.budgets.findIndex(
         (budget) => budget._id === action.payload._id
       );
-      
       if (index > -1) {
         return {
           ...state,
@@ -42,10 +41,9 @@ export default function (state = initialState, action) {
             ...state.budgets.slice(0, index),
             action.payload,
             ...state.budgets.slice(index + 1),
-        ]
+          ],
         };
-        
-      };
+      }
     case ADD_BUDGET:
       return {
         ...state,

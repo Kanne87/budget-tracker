@@ -112,7 +112,7 @@ class BudgetModal extends Component {
       <>
         {this.state.budget_submit === "add" ? (
           <Button
-            className="deleteButton"
+            className="addButton"
             style={{ marginTop: "1rem" }}
             color="dark"
             onClick={this.toggle}
@@ -137,7 +137,7 @@ class BudgetModal extends Component {
               ? "Budget hinzufügen"
               : ["Budget ID ", this.state.id, " bearbeiten"]}
           </ModalHeader>
-          <ModalBody>
+          <ModalBody >
             <Form onSubmit={this.onSubmit}>
               <FormGroup>
                 <Label for="budget">Beschreibung</Label>
