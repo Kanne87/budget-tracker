@@ -2,11 +2,30 @@
   font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
   line-height: 1.4285em;
 }
-
+/* Navbar */
 .appNavbar {
   position: sticky;
   top: 0;
 }
+
+.navCollapse {
+  float: right;
+  padding-right: 40px;
+}
+
+.navbar-splash {
+  padding: 0rem;
+  float: left;
+}
+
+.navbarToggler {
+  float: right;
+}
+
+.navbarPageDropdown {
+  left: 40px;
+}
+
 
 .remove-btn {
   margin-right: 0.5rem;
@@ -46,12 +65,13 @@
 .sidebar {
   flex: 1;
   height: calc(100vh - 50px);
-  background-color: #373F47;
+  background-color: #373f47;
   color: white;
   min-width: fit-content;
 }
 .containerBar {
   display: flex;
+
 }
 .mainPart {
   flex: 4;
@@ -70,7 +90,7 @@
   padding-left: 10px;
 }
 
-.sidebarListItem {
+.navListItem {
   cursor: pointer;
 }
 
@@ -89,29 +109,10 @@
   flex: 4;
 }
 
-.navCollapse {
-  float: right;
-  padding-right: 40px;
-}
-
-.navbar-splash {
-  padding: 0rem;
-  float:left;
-}
-
 .deleteButton {
   cursor: pointer;
 }
 
-.navbarToggler {
-  float: right;
-}
-
-.navbarPageDropdown {
-  position: relative;
-  float:left;
-  left: 40px
-}
 
 .currencyInput {
   display: block;
@@ -205,4 +206,16 @@
 
 .containerMain {
   padding-top: 3rem;
+}
+
+.splash {
+  display: inline-block;
+  font-size: 0.8rem;
+  padding: 0.2rem 0.7rem;
+  text-align: center;
+  margin: 0.3rem;
+  background: var(--light-color);
+  color: #333;
+  border-radius: 5px;
+  
 }

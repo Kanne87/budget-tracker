@@ -7,7 +7,6 @@ import {
   BUDGETS_LOADING,
   SWITCH_PAGE,
 } from "./types";
-import pages from "../pages/pages";
 import { tokenConfig } from "./authActions";
 import { returnErrors } from "./errorActions";
 

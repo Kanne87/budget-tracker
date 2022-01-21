@@ -4,30 +4,32 @@ import {
   Navbar,
   NavbarToggler,
   NavbarBrand,
+  NavbarText,
   Nav,
   NavItem,
   NavLink,
-  Container,
-  DropdownToggle,
-  DropdownItem,
-  DropdownMenu,
-  Dropdown,
 } from "reactstrap";
 import RegisterModal from "./auth/RegisterModal";
 import Logout from "./auth/Logout";
 import LoginModal from "./auth/LoginModal";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { switchPage } from "../actions/budgetActions";
 
 class AppNavbar extends Component {
   state = {
     isOpen: false,
     isOpenDropdown: false,
+    page: 0
   };
 
   static propTypes = {
     auth: PropTypes.object.isRequired,
   };
+
+  switchPage = (e) => {
+    this.props.switchPage(e.target.id);
+    };
 
   toggle = () => {
     this.setState({
@@ -46,9 +48,7 @@ class AppNavbar extends Component {
     const authLinks = (
       <Fragment>
         <NavItem>
-          <span className="navbar-text">
-            <strong>{user ? `Willkommen ${user.name}` : ""}</strong>
-          </span>
+          
         </NavItem>
         <NavItem>
           <Logout />
@@ -68,41 +68,43 @@ class AppNavbar extends Component {
       </Fragment>
     );
 
+    const pageLinks = (
+      <Fragment>
+        <NavItem>
+          <NavLink onClick={this.switchPage} id="Budget" className="navListItem">
+            Budgets
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink onClick={this.switchPage} id="Monitor" className="navListItem">
+            Monitor
+          </NavLink>
+        </NavItem>
+    </Fragment>
+    );
+
     return (
-      <div>
-        <Navbar color="dark" dark expand="true">
-          <Container>
+      <Fragment>
+        <Navbar color="dark" dark expand="md">
+          
             <NavbarBrand href="/">Budget Tracker</NavbarBrand>
-            <NavbarToggler onClick={this.toggle} className="navbarToggler" isOpen={this.state.isOpen}/>
-
-            
-            <Collapse isOpen={this.state.isOpen} navbar className="navCollapse">
-              <Nav className="" navbar>
-                {isAuthenticated ? authLinks : guestLinks}
-                <NavItem>
-                  <NavLink href="https://github.com/Kanne87">Github</NavLink>
-                </NavItem>
+            <NavbarToggler
+              onClick={this.toggle}
+              isOpen={this.state.isOpen}
+            />
+            <Collapse isOpen={this.state.isOpen} navbar >
+              <Nav className="me-auto" navbar>
+                {isAuthenticated && pageLinks}
               </Nav>
-            </Collapse>
-
-            <Dropdown className="navbarPageDropdown"isOpen={this.state.isOpenDropdown}  toggle={this.toggleDropdown}>
-              <DropdownToggle onClick={this.toggleDropdown} caret>Seiten</DropdownToggle>
-              <DropdownMenu container="body" flip={false}>
-                <DropdownItem onClick={function noRefCheck() {}} href="#">
-                  Budget
-                </DropdownItem>
-                <DropdownItem onClick={function noRefCheck() {}}>
-                  Action 2
-                </DropdownItem>
-                <DropdownItem onClick={function noRefCheck() {}}>
-                  Action 3
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-
-          </Container>
+              <NavbarText className="navbar-text">
+            <strong>{user ? `Willkommen ${user.name}` : ""}</strong>
+          </NavbarText>
+          <Nav navbar>
+          {isAuthenticated ? authLinks : guestLinks}
+          </Nav>
+            </Collapse> 
         </Navbar>
-      </div>
+      </Fragment>
     );
   }
 }
@@ -111,4 +113,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, null)(AppNavbar);
+export default connect(mapStateToProps, { switchPage })(AppNavbar);

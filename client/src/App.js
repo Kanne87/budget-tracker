@@ -1,35 +1,32 @@
 import React, { Component } from "react";
 import { Container } from "reactstrap";
 import AppNavbar from "./components/AppNavbar";
-import Sidebar from "./components/Sidebar";
+import { connect } from "react-redux";
 import Paginator from "./components/Paginator";
-import { Switch, Route } from "react-router-dom";
+import Splash from "./pages/Splash";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import store from "./store";
-import { loadUser } from './actions/authActions';
+import { loadUser } from "./actions/authActions";
 
 class App extends Component {
   componentDidMount() {
     store.dispatch(loadUser());
   }
+
   render() {
+    const { isAuthenticated } = this.props.auth;
     return (
       <div className="App">
-        <AppNavbar className="appNavbar" />
+        <AppNavbar />
         <div className="containerBar">
-          <Sidebar />
-          <Container className="mainPart">
-
-            
-            
-            <Paginator />
-            
-
-          </Container>
+          <Container>{isAuthenticated ? <Paginator /> : <Splash />}</Container>
         </div>
       </div>
     );
   }
 }
-export default App; 
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+export default connect(mapStateToProps)(App);

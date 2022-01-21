@@ -1,15 +1,16 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import Home from "../pages/Home";
 import Monitor from "../pages/Monitor";
+import Splash from "../pages/Splash";
 
 class Paginator extends Component {
   render() {
     return (
-      <div>
+      <Fragment> 
         {this.props.budget.page === 1 && <Home />} 
         {this.props.budget.page === 2 && <Monitor />}
-      </div>
+      </Fragment>
     );
   }
 }

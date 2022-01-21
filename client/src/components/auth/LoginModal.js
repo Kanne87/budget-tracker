@@ -8,8 +8,6 @@ import {
   FormGroup,
   Label,
   Input,
-  InputGroup,
-  InputGroupText,
   NavLink,
   Alert,
 } from "reactstrap";
@@ -67,8 +65,8 @@ class LoginModal extends Component {
     e.preventDefault();
     const { email, password } = this.state;
     const user = {
-       email,
-       password
+      email,
+      password,
     };
 
     // Loginversuch
