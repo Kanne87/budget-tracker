@@ -48,9 +48,6 @@ class AppNavbar extends Component {
     const authLinks = (
       <Fragment>
         <NavItem>
-          
-        </NavItem>
-        <NavItem>
           <Logout />
         </NavItem>
       </Fragment>
@@ -61,7 +58,6 @@ class AppNavbar extends Component {
         <NavItem>
           <RegisterModal />
         </NavItem>
-
         <NavItem>
           <LoginModal />
         </NavItem>
@@ -85,7 +81,7 @@ class AppNavbar extends Component {
 
     return (
       <Fragment>
-        <Navbar color="dark" dark expand="md">
+        <Navbar color="dark" dark expand="md" className="shadow">
           
             <NavbarBrand href="/">Budget Tracker</NavbarBrand>
             <NavbarToggler

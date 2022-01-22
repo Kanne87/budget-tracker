@@ -27,8 +27,7 @@ class BudgetList extends Component {
   render() {
     const { budgets } = this.props.budget;
     return (
-      <Container>
-        <ListGroup>
+      
           <Table>
             <thead>
               <tr>
@@ -74,8 +73,7 @@ class BudgetList extends Component {
               )}
             </tbody>
           </Table>
-        </ListGroup>
-      </Container>
+          
     );
   }
 }

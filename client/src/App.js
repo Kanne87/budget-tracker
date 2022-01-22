@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import { Container } from "reactstrap";
+import React, { Component, Fragment } from "react";
 import AppNavbar from "./components/AppNavbar";
 import { connect } from "react-redux";
 import Paginator from "./components/Paginator";
@@ -17,12 +16,13 @@ class App extends Component {
   render() {
     const { isAuthenticated } = this.props.auth;
     return (
-      <div className="App">
-        <AppNavbar />
-        <div className="containerBar">
-          <Container>{isAuthenticated ? <Paginator /> : <Splash />}</Container>
-        </div>
-      </div>
+      <Fragment>
+        <main>
+          <AppNavbar />
+          {isAuthenticated ? <Paginator /> : <Splash />}
+        </main>
+        {/* <footer>Footer</footer> */}
+      </Fragment>
     );
   }
 }

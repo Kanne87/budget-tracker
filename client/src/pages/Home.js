@@ -5,17 +5,19 @@ import PaymentsIcon from "@mui/icons-material/Payments";
 
 function Home() {
   return (
-    <div className="home">
-      <h2 className="ui header ">
+    <section>
+      <header className="header border">
         <BudgetModal mode="add" />
         <PaymentsIcon fontSize="large" /> Budgets
-        <div className="sub vontent">Verwalte das Budget</div>
-      </h2>
+        <p className="subheader">Verwalte das Budget</p>
+      </header>
 
-      <div className="ui">
+      <article className="border">
         <BudgetList key="2" />
-      </div>
-    </div>
+      </article>
+      
+    </section>
+    
   );
 }
 

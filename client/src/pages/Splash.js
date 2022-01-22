@@ -4,11 +4,9 @@ import login from '../images/splash_login.png';
 
 function Splash() {
   return (
-   <div className="container splash">
-
-      
-      <img src={login} alt="Login" />
-    </div>
+   <section className="home">
+      <img src={login} alt="Login" className="splashImage"/>
+    </section>
   );
 }
 

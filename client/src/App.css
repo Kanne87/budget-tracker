@@ -1,118 +1,88 @@
 * {
   font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-size: 1rem;
   line-height: 1.4285em;
-}
-/* Navbar */
-.appNavbar {
-  position: sticky;
-  top: 0;
-}
-
-.navCollapse {
-  float: right;
-  padding-right: 40px;
+  --background1: black;
+  --background2: rgb(255, 255, 255);
+  --shadow: #d4d4d5;
+  --text: #111111;
+  
 }
 
-.navbar-splash {
-  padding: 0rem;
-  float: left;
-}
+/* Home Container */
 
-.navbarToggler {
-  float: right;
-}
-
-.navbarPageDropdown {
-  left: 40px;
-}
-
-
-.remove-btn {
-  margin-right: 0.5rem;
-  padding-left: 0.5rem;
-}
-
-.fade-enter {
-  opacity: 0.01;
-}
-
-.fade-enter-active {
-  opacity: 1;
-  transition: opacity 1000ms ease-in;
-}
-
-.fade-exit {
-  opacity: 1;
-}
-
-.fade-exit-active {
-  opacity: 0.01;
-  transition: opacity 1000ms ease-in;
-}
-
-.list-budget {
-  background-color: black;
-  -webkit-box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15);
-  box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15);
-  margin: 1rem 0;
+section {
+  display:flex;
+  flex-direction: column;
+  margin: auto;
+  padding: 1.5rem;
+  max-width: 800px;
   margin-top: 1rem;
-  margin-bottom: 1rem;
-  padding: 1em 1em;
-  border-radius: 0.28571429rem;
-  border: 1px solid rgba(34, 36, 38, 0.15);
+  color: var(--text);
 }
 
-.sidebar {
-  flex: 1;
-  height: calc(100vh - 50px);
-  background-color: #373f47;
-  color: white;
-  min-width: fit-content;
+.main {
+  background: var(--background2);
 }
-.containerBar {
+
+
+.home {
+  display:flex;
+  flex-direction: column;
+  margin: auto;
+  padding: 1.5rem;
+  max-width: 800px;
+  margin-top: 1rem;
+  color: var(--text);
+  background-color: var(--background1);
+}
+
+.header {
+  position: relative;
+  padding: 0.5rem;
+  margin-bottom:1rem;
+  font-weight: 700;
+  font-size: 1.71428571rem;
+}
+
+.subheader {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 0;
+}
+
+.section {
+  margin-top: 1rem;
+  padding: 0.5rem;
+}
+footer {
+  
+  border:2px brown solid;
   display: flex;
-
-}
-.mainPart {
-  flex: 4;
+  width: 100%;
+  max-height: auto;
 }
 
-.sidebarWrapper {
-  padding: 15px;
+.border {
+  border: 2px solid var(--shadow);
+  border-radius: 0.28571429rem;
+  -webkit-box-shadow: 5px 5px 6px -5px #000000; 
+  box-shadow: 5px 5px 6px -5px #000000;
+}
+.shadow {
+  -webkit-box-shadow: 5px 5px 6px -5px #000000; 
+  box-shadow: 5px 5px 6px -5px #000000;
+  
 }
 
-.sidebarTitle {
-  font-size: 18px;
+.addModal {
+  max-width: 600px !important;
+  margin-top: 1rem;
 }
 
-.sidebarList {
-  list-style: none;
-  padding-left: 10px;
+.addButton {
+  float: inline-end;
 }
-
-.navListItem {
-  cursor: pointer;
-}
-
-.sidebarListItem:active,
-.sidebarListItem:hover {
-  background-color: grey;
-  border-radius: 10px;
-}
-
-.budgetList {
-  -webkit-box-shadow: 0px 6px 10px 4px rgba(0, 0, 0, 0.17);
-  box-shadow: 0px 6px 10px 4px rgba(0, 0, 0, 0.17);
-}
-
-.monitor {
-  flex: 4;
-}
-
-.deleteButton {
-  cursor: pointer;
-}
-
 
 .currencyInput {
   display: block;
@@ -121,8 +91,6 @@
   font-weight: 400;
   line-height: 1.5;
   color: #212529;
-  background-color: #fff;
-  background-clip: padding-box;
   border: 1px solid #ced4da;
   -webkit-appearance: none;
   appearance: none;
@@ -134,88 +102,7 @@
   text-align: right;
 }
 
-.addModal {
-  max-width: 600px !important;
-  margin-top: 1rem;
-}
-
-.addButton {
-  padding: 1rem;
-  position: relative;
-
-  float: inline-end;
-}
-
-.viewModal {
-  position: relative;
-  background: #fff;
-  -webkit-box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15);
-  box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15);
-  margin: 1rem 0;
-  margin-top: 4rem;
-  margin-bottom: 1rem;
-  padding: 1em 1em;
-  border-radius: 0.28571429rem;
-  border: 1px solid rgba(34, 36, 38, 0.15);
-}
-
-.home {
-  position: relative;
-  margin: 1.5rem;
-}
-
-.ui {
-  position: relative;
-  border: 1px solid #d4d4d5;
-}
-
-.header {
-  font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
-  border: 1px solid #d4d4d5;
-  border-radius: 0.28571429rem;
-  padding: 0.5rem;
-  font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
-  font-weight: 700;
-  line-height: 1.28571429em;
-  text-transform: none;
-  color: rgba(0, 0, 0, 0.87);
-  font-size: 1.71428571rem;
-  position: relative;
-}
-
-.sub {
-  display: block;
-  font-size: 1.14285714rem;
-  font-weight: 400;
-  padding: 0;
-  margin: 0;
-  font-size: 1rem;
-  line-height: 1.2em;
-  color: rgba(0, 0, 0, 0.6);
-}
-
-.icon {
-  padding-right: 0.5rem;
-  display: table-cell;
-  font-size: 2rem;
-}
-
-.content {
-  position: relative;
-}
-
-.containerMain {
-  padding-top: 3rem;
-}
-
-.splash {
-  display: inline-block;
-  font-size: 0.8rem;
-  padding: 0.2rem 0.7rem;
-  text-align: center;
-  margin: 0.3rem;
-  background: var(--light-color);
-  color: #333;
-  border-radius: 5px;
-  
+.splashImage {
+  width: 300px;
+  margin: auto;
 }

@@ -2,7 +2,6 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import Home from "../pages/Home";
 import Monitor from "../pages/Monitor";
-import Splash from "../pages/Splash";
 
 class Paginator extends Component {
   render() {
