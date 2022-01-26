@@ -47,6 +47,11 @@ class AppNavbar extends Component {
 
     const authLinks = (
       <Fragment>
+                <NavItem>
+          <NavLink onClick={this.switchPage} id="Einstellungen" className="navListItem">
+            Einstellungen
+          </NavLink>
+        </NavItem>
         <NavItem>
           <Logout />
         </NavItem>
@@ -76,12 +81,13 @@ class AppNavbar extends Component {
             Monitor
           </NavLink>
         </NavItem>
+
     </Fragment>
     );
 
     return (
       <Fragment>
-        <Navbar color="dark" dark expand="md" className="shadow">
+        <Navbar dark expand="md" className="shadow navbar">
           
             <NavbarBrand href="/">Budget Tracker</NavbarBrand>
             <NavbarToggler

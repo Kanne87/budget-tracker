@@ -14,3 +14,7 @@ export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAIL = 'REGISTER_FAIL';
 export const GET_ERRORS = 'GET_ERRORS';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+export const GET_LABELS = 'GET_LABELS';
+export const ADD_LABEL = 'ADD_LABEL';
+export const DELETE_LABEL = 'DELETE_LABEL';
+export const EDIT_LABEL = 'EDIT_LABEL';

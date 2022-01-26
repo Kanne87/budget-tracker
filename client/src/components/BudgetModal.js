@@ -112,9 +112,8 @@ class BudgetModal extends Component {
       <>
         {this.state.budget_submit === "add" ? (
           <Button
-            className="addButton"
+            className="addButton shadow"
             style={{ marginTop: "1rem" }}
-            color="dark"
             onClick={this.toggle}
           >
             Hinzufügen
@@ -150,7 +149,7 @@ class BudgetModal extends Component {
                   onChange={this.onChange}
                 />
                 <Row>
-                  <Col className="bg-light " xs="6">
+                  <Col className="bg-light" xs="6">
                     <Label for="budget_amount">Betrag</Label>
                     <InputGroup>
                       <InputGroupText>€</InputGroupText>

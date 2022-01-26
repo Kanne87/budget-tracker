@@ -4,7 +4,7 @@ export default function (action) {
       return 1;
     case "Monitor":
       return 2;
-    case "Splash":
+    case "Einstellungen":
       return 3;
     default:
       return 0;

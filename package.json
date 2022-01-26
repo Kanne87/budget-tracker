@@ -28,7 +28,8 @@
     "mongoose-currency": "^0.2.0",
     "mongoose-float": "^1.0.4",
     "react": "^17.0.2",
-    "react-router-dom": "^6.2.1"
+    "react-router-dom": "^6.2.1",
+    "react-uuid": "^1.0.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"

@@ -1,48 +1,64 @@
+:root {
+  --background1: #1D3557;
+  --background2: #ffffff;
+  --background3: #457B9D;
+  --shadow: #d4d4d5;
+  --text: #111111;
+  --text2: #ffffff;
+}
 * {
   font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
   font-size: 1rem;
   line-height: 1.4285em;
-  --background1: black;
-  --background2: rgb(255, 255, 255);
-  --shadow: #d4d4d5;
-  --text: #111111;
-  
 }
 
 /* Home Container */
 
+body {
+  background: linear-gradient(90deg, var(--background1), var(--background3)) !important;
+  box-sizing: border-box;
+}
+
 section {
-  display:flex;
-  flex-direction: column;
-  margin: auto;
-  padding: 1.5rem;
-  max-width: 800px;
-  margin-top: 1rem;
-  color: var(--text);
-}
+  width: 100%;
+  background-color: var(--background2) !important;
+  padding: 1rem 0 2rem 0;
+  color: var(--background1);
+  }
 
-.main {
-  background: var(--background2);
-}
-
-
-.home {
-  display:flex;
-  flex-direction: column;
-  margin: auto;
-  padding: 1.5rem;
-  max-width: 800px;
-  margin-top: 1rem;
-  color: var(--text);
-  background-color: var(--background1);
-}
-
-.header {
+header {
   position: relative;
   padding: 0.5rem;
-  margin-bottom:1rem;
+  margin: 0 auto 1rem auto;
+  max-width: 800px;
   font-weight: 700;
   font-size: 1.71428571rem;
+}
+main {
+  display:flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  margin: 0 auto 0 auto;
+  max-width: 800px;
+  color: var(--background1) !important;
+}
+
+footer {
+  display: flex;
+  column-gap: 0.5rem;
+  width: 100%;
+  height: 200px;
+  color: var(--text2);
+  justify-content: center;
+  
+}
+
+table {
+  color: var(--background1) !important;
+}
+
+.navListItem {
+  cursor: pointer;
 }
 
 .subheader {
@@ -51,17 +67,12 @@ section {
   margin-bottom: 0;
 }
 
-.section {
-  margin-top: 1rem;
+.footerContainer {
+  width: 31%;
   padding: 0.5rem;
+  line-height: 1.5rem;
 }
-footer {
-  
-  border:2px brown solid;
-  display: flex;
-  width: 100%;
-  max-height: auto;
-}
+
 
 .border {
   border: 2px solid var(--shadow);
@@ -82,6 +93,7 @@ footer {
 
 .addButton {
   float: inline-end;
+  background-color: var(--background1) !important;
 }
 
 .currencyInput {
@@ -105,4 +117,8 @@ footer {
 .splashImage {
   width: 300px;
   margin: auto;
+}
+
+.btnColor {
+  color: var(--background1);
 }

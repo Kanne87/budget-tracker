@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import Home from "../pages/Home";
+import Einstellungen from "../pages/Einstellungen";
 import Monitor from "../pages/Monitor";
 
 class Paginator extends Component {
@@ -9,6 +10,7 @@ class Paginator extends Component {
       <Fragment> 
         {this.props.budget.page === 1 && <Home />} 
         {this.props.budget.page === 2 && <Monitor />}
+        {this.props.budget.page === 3 && <Einstellungen />}
       </Fragment>
     );
   }
