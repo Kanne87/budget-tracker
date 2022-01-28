@@ -10,16 +10,16 @@ import {
 import { tokenConfig } from "./authActions";
 import { returnErrors } from "./errorActions";
 
-export const getBudgets = () => (dispatch) => {
+export const getBudgets = (userId) => (dispatch) => {
   dispatch(setBudgetsLoading());
   axios
-    .get("/api/budgets")
-    .then((res) =>
+    .get(`/api/budgets/${userId}`)
+    .then((res) => {
       dispatch({
         type: GET_BUDGETS,
         payload: res.data,
-      })
-    )
+      });
+    })
     .catch((err) =>
       dispatch(returnErrors(err.response.data, err.response.status))
     );
@@ -40,17 +40,18 @@ export const deleteBudget = (id) => (dispatch, getState) => {
 };
 
 export const editBudget = (budget) => (dispatch, getState) => {
-  axios.put(`/api/budgets/${budget._id}`, budget, tokenConfig(getState))
-  
-  .then((res) =>
-    dispatch({
-      type: EDIT_BUDGET,
-      payload: budget,
-    })
-    
-  ).catch((err) =>
-  dispatch(returnErrors(err.response.data, err.response.status))
-);
+  axios
+    .put(`/api/budgets/${budget._id}`, budget, tokenConfig(getState))
+
+    .then((res) =>
+      dispatch({
+        type: EDIT_BUDGET,
+        payload: budget,
+      })
+    )
+    .catch((err) =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };
 
 export const addBudget = (budget) => (dispatch, getState) => {

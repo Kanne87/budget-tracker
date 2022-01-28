@@ -5,12 +5,17 @@ const auth = require("../../middleware/auth");
 
 const Budget = require("../../models/Budget");
 
+const user = 
+
 // @route   GET api budget
 // @desc    Get All budgets
 // @access  Public
-router.get("/", (req, res) => {
-  Budget.find()
+router.get("/:userId", (req, res) => {
+  const userId = req.params.userId;
+  console.log(userId);
+  Budget.find( {userId: userId})
     .sort({ date: -1 })
+    
     .then((budget) => res.json(budget));
 });
 
@@ -24,6 +29,7 @@ router.post("/", auth, (req, res) => {
     budget_intervall: req.body.budget_intervall,
     budget_start: req.body.budget_start,
     budget_end: req.body.budget_end,
+    userId: req.body.userId,
   });
 
   newBudget.save().then((budget) => res.json(budget));
@@ -50,6 +56,7 @@ router.put("/:id", auth, (req, res) => {
     budget_intervall: req.body.budget_intervall,
     budget_start: req.body.budget_start,
     budget_end: req.body.budget_end,
+    userId: req.body.userId,
   });
   Budget.findByIdAndUpdate(id, editBudget).then((budget) => res.json(budget));
 });

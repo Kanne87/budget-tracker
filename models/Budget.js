@@ -27,6 +27,10 @@ const BudgetSchema = new Schema({
    budget_end: {
       type: Date,
       default: ""
+   },
+   userId: {
+      type: String,
+      default: ""
    }
 });
 

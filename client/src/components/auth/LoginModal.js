@@ -22,6 +22,7 @@ class LoginModal extends Component {
     email: "",
     password: "",
     msg: null,
+    userId: ""
   };
 
   static propTypes = {

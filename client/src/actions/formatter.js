@@ -1,4 +1,5 @@
-const calcCurrency = (number) => {
+export const calcCurrency = (number) => {
+   const result = number / 100;
    const formatter = {
       style: 'currency',
       currency: 'EUR',
@@ -6,7 +7,22 @@ const calcCurrency = (number) => {
       maximumFractionDigits: 2,
       currencyDisplay: "symbol",
     };
-    const format = new Intl.NumberFormat('de-DE', formatter).format(number);
+    const format = new Intl.NumberFormat('de-DE', formatter).format(result);
    return format
 }
- export default calcCurrency
+
+// Formatiere Text, damit er vom State gelesen werden kann
+export const formatAmount = (number) => {
+   const result = number /100;
+   /* const result = parseFloat(
+      number.replace(/,/g, ".")
+    ).toFixed(2); */
+   
+return result;
+}
+
+export const replaceAmount = (number) => {
+   const result = number.replace(/,/g, ".");
+   return result;
+}
+

@@ -7,11 +7,12 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import BudgetModal from "./BudgetModal";
 import { FaEdit } from "react-icons/fa";
 import "../App.css";
-import calcCurrency from "../actions/formatter";
+import { calcCurrency } from "../actions/formatter";
 
 class BudgetList extends Component {
   componentDidMount() {
-    this.props.getBudgets();
+    const  userId  = this.props.auth.user._id;
+    this.props.getBudgets(userId);
   }
 
   onDeleteClick = (id) => {
@@ -26,6 +27,8 @@ class BudgetList extends Component {
 
   render() {
     const { budgets } = this.props.budget;
+    const  userId  = this.props.auth.user._id;
+    
     return (
       
           <Table>
@@ -66,7 +69,7 @@ class BudgetList extends Component {
                     <td>{name}</td>
                     <td>{budget_intervall}</td>
                     <td className="currencyText">
-                      {calcCurrency(budget_amount / 100)}
+                      {calcCurrency(budget_amount)}
                     </td>
                   </tr>
                 )
@@ -85,6 +88,7 @@ BudgetList.propTypes = {
 
 const mapStateToProps = (state) => ({
   budget: state.budget,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, {
