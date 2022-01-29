@@ -24,6 +24,7 @@ mongoose
 app.use('/api/budgets', require('./routes/api/budgets'));
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
+app.use('/api/labels', require('./routes/api/labels'));
 
 // Serve static assets if in production
 if(process.env.NODE_ENV === 'production') {

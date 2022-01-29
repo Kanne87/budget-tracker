@@ -1,31 +1,32 @@
 const express = require("express");
 const res = require("express/lib/response");
 const router = express.Router();
-
+const auth = require("../../middleware/auth");
 const Label = require("../../models/Label");
 
 // @route   GET api budget
 // @desc    Get All budgets
 // @access  Public
-router.get("/", (req, res) => {
-  Label.find()
-    .sort({ name: -1 })
+router.get("/:userId", (req, res) => {
+  const userId = req.params.userId;
+  
+  Label.find({userId: userId})
+    .sort({ label_name: -1 })
     .then((label) => res.json(label));
+    
 });
 
-// @route   POST api/budgets
+// @route   POST api/label
 // @desc    Create an Budget
 // @access  Private
 router.post("/", auth, (req, res) => {
-  const newBudget = new Budget({
-    name: req.body.name,
-    budget_amount: req.body.budget_amount,
-    budget_intervall: req.body.budget_intervall,
-    budget_start: req.body.budget_start,
-    budget_end: req.body.budget_end,
+  const newLabel = new Label({
+    label_name: req.body.label_name,
+    label_color: req.body.label_color,
+    userId: req.body.userId,
   });
 
-  newBudget.save().then((budget) => res.json(budget));
+  newLabel.save().then((label) => res.json(label));
 });
 
 // @route   DELETE api/items/:id

@@ -45,12 +45,13 @@ class BudgetModal extends Component {
         return budget._id === this.props.editId;
       });
       const budgetEdit = budgetEditArray[0];
-
+      const amountText = budgetEdit.budget_amount / 100;
+      const amount = '' + amountText;
       this.setState({
         id: this.props.editId,
         name: budgetEdit.name,
-        budget_amount: budgetEdit.budget_amount,
-        budget_intervall: budgetEdit.budget_intervall,
+        budget_amount: amount,
+        budget_intervall: budgetEdit.budget_intervall ,
         budget_edit: budgetEdit.budget_submit,
         budget_start: budgetEdit.budget_start.substr(0, 10),
         budget_end:
@@ -68,6 +69,7 @@ class BudgetModal extends Component {
       modal: !this.state.modal,
       checkEnd: false,
     });
+    
     /* console.log(formatAmount(this.state.budget_amount)); */
   };
 
@@ -75,6 +77,7 @@ class BudgetModal extends Component {
     this.setState({
       checkEnd: !this.state.checkEnd,
     });
+    
   };
 
   onChange = (e) => {
@@ -105,8 +108,8 @@ class BudgetModal extends Component {
       const editBudget = {
         _id: this.state.id,
         name: this.state.name,
-        budget_amount: replaceAmount(this.state.budget_amount),
-        budget_intervall: this.state.budget_intervall,
+        budget_amount: this.state.budget_amount.replace(/,/g, ".") * 100,
+        budget_intervall: this.state.budget_intervall ,
         budget_submit: this.state.budget_submit,
         budget_start: this.state.budget_start,
         budget_end: this.state.budget_end,
@@ -176,7 +179,7 @@ class BudgetModal extends Component {
                         placeholder="Betrag eingeben"
                         name="budget_amount"
                         id="budget_amount"
-                        defaultValue={this.state.budget_amount * 100}
+                        defaultValue={this.state.budget_amount}
                         onChange={this.onChange}
                       />
                     </InputGroup>

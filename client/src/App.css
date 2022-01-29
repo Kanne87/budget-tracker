@@ -50,8 +50,23 @@ footer {
   height: 200px;
   color: var(--text2);
   justify-content: center;
-  
 }
+
+/* Farben der Radiobutton */
+
+.radioContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.radioColor {
+  float: left;
+  border: black 1px solid;
+  width: 21px;
+  height: 21px;;
+  top: 5px;
+}
+
 
 table {
   color: var(--background1) !important;
@@ -65,6 +80,21 @@ table {
   font-size: 1rem;
   font-weight: 400;
   margin-bottom: 0;
+}
+
+.headerWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.headerTitle {
+  width:70%;
+  font-size: inherit;
+}
+
+.headerContent {
+  width: 200px;
 }
 
 .footerContainer {
@@ -92,8 +122,9 @@ table {
 }
 
 .addButton {
-  float: inline-end;
   background-color: var(--background1) !important;
+  float: right;
+  margin-top: 1rem;
 }
 
 .currencyInput {
@@ -114,7 +145,7 @@ table {
 }
 
 .splashImage {
-  width: 300px;
+  width: 200px;
   margin: auto;
 }
 

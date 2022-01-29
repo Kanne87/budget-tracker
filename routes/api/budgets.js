@@ -12,7 +12,6 @@ const user =
 // @access  Public
 router.get("/:userId", (req, res) => {
   const userId = req.params.userId;
-  console.log(userId);
   Budget.find( {userId: userId})
     .sort({ date: -1 })
     
