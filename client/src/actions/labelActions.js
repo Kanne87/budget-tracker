@@ -2,13 +2,14 @@ import axios from "axios";
 import {
   GET_LABELS,
   ADD_LABEL,
-  EDIT_BUDGET,
-  DELETE_BUDGET,
+  EDIT_LABEL,
+  DELETE_LABEL,
   BUDGETS_LOADING,
   SWITCH_PAGE,
 } from "./types";
 import { tokenConfig } from "./authActions";
 import { returnErrors } from "./errorActions";
+import { colors } from "./constants";
 
 export const getLabels = (userId) => (dispatch) => {
   axios
@@ -24,12 +25,12 @@ export const getLabels = (userId) => (dispatch) => {
     );
 };
 
-export const deleteBudget = (id) => (dispatch, getState) => {
+export const deleteLabel = (id) => (dispatch, getState) => {
   axios
-    .delete(`/api/budgets/${id}`, tokenConfig(getState))
+    .delete(`/api/labels/${id}`, tokenConfig(getState))
     .then((res) =>
       dispatch({
-        type: DELETE_BUDGET,
+        type: DELETE_LABEL,
         payload: id,
       })
     )
@@ -38,14 +39,14 @@ export const deleteBudget = (id) => (dispatch, getState) => {
     );
 };
 
-export const editBudget = (budget) => (dispatch, getState) => {
+export const editLabel = (label) => (dispatch, getState) => {
   axios
-    .put(`/api/budgets/${budget._id}`, budget, tokenConfig(getState))
+    .put(`/api/labels/${label._id}`, label, tokenConfig(getState))
 
     .then((res) =>
       dispatch({
-        type: EDIT_BUDGET,
-        payload: budget,
+        type: EDIT_LABEL,
+        payload: label,
       })
     )
     .catch((err) =>
@@ -79,3 +80,15 @@ export const switchPage = (page) => {
     payload: page,
   };
 };
+
+export const getLabelColor = (labelId, labels ) => {
+  const result = labels.find(label => label._id === labelId);
+  if (result === undefined) {
+    return ""
+  } else {
+    const hex = colors.find(color => color.id === result.label_color);
+    return "#" + hex.hex;
+  }
+
+}
+

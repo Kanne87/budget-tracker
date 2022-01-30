@@ -1,15 +1,13 @@
 import React, { Component } from "react";
 import { Container, ListGroup, ListGroupItem, Button, Table } from "reactstrap";
 import { connect } from "react-redux";
-import {
-  getLabels,
-  deleteBudget,
-  editBudget,
-} from "../../actions/labelActions";
+import { getLabels, deleteLabel, editBudget } from "../../actions/labelActions";
 import { colors } from "../../actions/constants";
 import PropTypes from "prop-types";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { FaEdit } from "react-icons/fa";
+import LabelEditModal from "./LabelEditModal";
+
 
 class LabelList extends Component {
   componentDidMount() {
@@ -18,10 +16,22 @@ class LabelList extends Component {
   }
 
   onDeleteClick = (id) => {
-    this.props.deleteBudget(id);
+    this.props.deleteLabel(id);
   };
 
-  onEditClick = (id) => {};
+  getColorName = (id) => {
+    const result = colors.find((color) => color.id === id.label_color);
+    return result.colorName;
+  };
+  getColorHex = (id) => {
+    const result = colors.find((color) => color.id === id.label_color);
+    return result.hex;
+  };
+
+  onEditClick = (id) => {
+    console.log(id);
+    
+  };
 
   render() {
     const { labels } = this.props.label;
@@ -37,9 +47,23 @@ class LabelList extends Component {
         <tbody>
           {labels.map(({ _id, label_name, label_color }) => (
             <tr key={_id}>
-              <td><DeleteIcon /> <FaEdit /></td>
+              <td>
+                <DeleteIcon
+                  onClick={this.onDeleteClick.bind(this, _id)}
+                  className="deleteButton"
+                />{" "}
+                <LabelEditModal editId={_id} editName={label_name} editColor={label_color} />
+              </td>
               <td>{label_name}</td>
-              <td>{label_color}</td>
+              <td>
+                <div
+                  className="labelColor"
+                  style={{
+                    backgroundColor: `#${this.getColorHex({ label_color })}`,
+                  }}
+                ></div>
+                &nbsp;{this.getColorName({ label_color })}
+              </td>
             </tr>
           ))}
         </tbody>
@@ -50,7 +74,6 @@ class LabelList extends Component {
 
 LabelList.propTypes = {
   getLabels: PropTypes.func.isRequired,
-  labels: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -60,4 +83,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getLabels,
+  deleteLabel,
 })(LabelList);

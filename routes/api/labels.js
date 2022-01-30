@@ -33,8 +33,8 @@ router.post("/", auth, (req, res) => {
 // @desc    Delete an Item
 // @access  Private
 router.delete("/:id", auth, (req, res) => {
-  Budget.findById(req.params.id)
-    .then((budget) => budget.remove().then(() => res.json({ success: true })))
+  Label.findById(req.params.id)
+    .then((label) => label.remove().then(() => res.json({ success: true })))
     .catch((err) => res.status(404).json({ success: false }));
 });
 
@@ -43,15 +43,13 @@ router.delete("/:id", auth, (req, res) => {
 // @access  Public
 router.put("/:id", auth, (req, res) => {
   const id = req.params.id;
-  const editBudget = new Budget({
+  const editLabel = new Label({
     _id: id,
-    name: req.body.name,
-    budget_amount: req.body.budget_amount,
-    budget_intervall: req.body.budget_intervall,
-    budget_start: req.body.budget_start,
-    budget_end: req.body.budget_end,
+    label_name: req.body.label_name,
+    label_color: req.body.label_color,
+    userId: req.body.userId,
   });
-  Budget.findByIdAndUpdate(id, editBudget).then((budget) => res.json(budget));
+  Label.findByIdAndUpdate(id, editLabel).then((label) => res.json(label));
 });
 
 module.exports = router;

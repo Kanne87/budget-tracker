@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import {
   Button,
   Modal,
@@ -14,24 +14,23 @@ import {
   Col,
 } from "reactstrap";
 import { connect } from "react-redux";
-import { addLabel } from "../../actions/labelActions";
+import { editLabel } from "../../actions/labelActions";
 import CurrencyInput from "react-currency-input-field";
 import { format } from "date-fns";
 import { replaceAmount } from "../../actions/formatter";
 import { colors } from "../../actions/constants";
 import { FaEdit } from "react-icons/fa";
-import id from "date-fns/esm/locale/id/index.js";
 
-class LabelModal extends Component {
+class LabelEditModal extends Component {
   componentDidMount = () => {
-    
+    console.log(this.props.editColor);
   };
 
   state = {
-    id: "",
-    label_name: "",
-    userId: "",
-    label_color: "",
+    _id: this.props.editId,
+    label_name: this.props.editName,
+    label_color: this.props.editColor,
+    userId: this.props.auth.user._id,
     modal: false,
   };
 
@@ -41,36 +40,45 @@ class LabelModal extends Component {
     });
   };
 
+  isChecked = (id) => {
+    if (id === this.state.label_color) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
   onSubmit = (e) => {
     e.preventDefault();
-    const userId = this.props.auth.user._id;
-    const newLabel = {
+    const editLabel = {
+      _id: this.state._id,
       label_name: this.state.label_name,
       label_color: this.state.label_color,
-      userId: userId,
+      userId: this.state.userId,
     };
-    this.props.addLabel(newLabel);
+
+    this.props.editLabel(editLabel);
+
     //Add item via addItem
+
     this.toggle();
   };
 
   render() {
+    const labelColor = this.state.label_color;
     return (
-      <>
-        <Button className="addButton" onClick={this.toggle}>
-          Hinzufügen
-        </Button>
-
+      <Fragment>
+        <FaEdit onClick={this.toggle} />
         <Modal
           className="addModal"
           isOpen={this.state.modal}
           toggle={this.toggle}
         >
-          <ModalHeader toggle={this.toggle}>Label hinzufügen</ModalHeader>
+          <ModalHeader toggle={this.toggle}>Label editieren</ModalHeader>
           <ModalBody>
             <Form onSubmit={this.onSubmit}>
               <FormGroup>
@@ -84,7 +92,6 @@ class LabelModal extends Component {
                   onChange={this.onChange}
                 />
                 <Label for="colors">Farben</Label>
-                
                 {colors.map(({ id, colorName, hex }) => (
                   <div className="radioContainer" key={id}>
                     <Input
@@ -93,6 +100,7 @@ class LabelModal extends Component {
                       id="label_color"
                       onChange={this.onChange}
                       value={id}
+                      checked={this.isChecked(id)}
                     />
                     &nbsp;&nbsp;
                     <Label check>
@@ -105,20 +113,20 @@ class LabelModal extends Component {
                   </div>
                 ))}
                 <Button color="dark" style={{ marginTop: "2rem" }} block>
-                  Hinzufügen
+                  Speichern
                 </Button>
               </FormGroup>
             </Form>
           </ModalBody>
         </Modal>
-      </>
+      </Fragment>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  budget: state.budget,
+  label: state.label,
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { addLabel })(LabelModal);
+export default connect(mapStateToProps, { editLabel })(LabelEditModal);

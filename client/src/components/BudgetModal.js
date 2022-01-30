@@ -34,6 +34,7 @@ class BudgetModal extends Component {
     budget_submit: this.props.mode,
     budget_start: format(new Date(), "yyyy-MM-dd"),
     budget_end: "",
+    budget_label: "",
     userId: "",
     checkEnd: false,
   };
@@ -46,30 +47,30 @@ class BudgetModal extends Component {
       });
       const budgetEdit = budgetEditArray[0];
       const amountText = budgetEdit.budget_amount / 100;
-      const amount = '' + amountText;
+      const amount = "" + amountText;
       this.setState({
         id: this.props.editId,
         name: budgetEdit.name,
         budget_amount: amount,
-        budget_intervall: budgetEdit.budget_intervall ,
+        budget_intervall: budgetEdit.budget_intervall,
         budget_edit: budgetEdit.budget_submit,
         budget_start: budgetEdit.budget_start.substr(0, 10),
         budget_end:
           budgetEdit.budget_end !== null
             ? budgetEdit.budget_end.substr(0, 10)
             : null,
+        budget_label: budgetEdit.budget_label,
         userId: budgetEdit.userId,
       });
     }
-  }
-
+  };
 
   toggle = () => {
     this.setState({
       modal: !this.state.modal,
       checkEnd: false,
     });
-    
+
     /* console.log(formatAmount(this.state.budget_amount)); */
   };
 
@@ -77,7 +78,6 @@ class BudgetModal extends Component {
     this.setState({
       checkEnd: !this.state.checkEnd,
     });
-    
   };
 
   onChange = (e) => {
@@ -86,45 +86,45 @@ class BudgetModal extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const userId  = this.props.auth.user._id;
+    const userId = this.props.auth.user._id;
     if (this.state.budget_submit === "add") {
       const amountFixed = this.state.budget_amount;
       const newBudget = {
         name: this.state.name,
-        budget_amount: parseFloat(
-          amountFixed.replace(/,/g, ".")
-        ).toFixed(2),
+        budget_amount: parseFloat(amountFixed.replace(/,/g, ".")).toFixed(2),
         budget_intervall: this.state.budget_intervall,
         budget_submit: this.state.budget_submit,
         budget_start: this.state.budget_start,
         budget_end: this.state.budget_end,
+        budget_label: this.state.budget_label,
         userId: userId,
       };
       this.props.addBudget(newBudget);
     }
-    
+
     if (this.state.budget_submit === "edit") {
       const amountFixed = this.state.budget_amount;
       const editBudget = {
         _id: this.state.id,
         name: this.state.name,
         budget_amount: this.state.budget_amount.replace(/,/g, ".") * 100,
-        budget_intervall: this.state.budget_intervall ,
+        budget_intervall: this.state.budget_intervall,
         budget_submit: this.state.budget_submit,
         budget_start: this.state.budget_start,
         budget_end: this.state.budget_end,
+        budget_label: this.state.budget_label,
         userId: userId,
       };
       this.props.editBudget(editBudget);
-      console.log(editBudget.budget_amount);
     }
     //Add item via addItem
 
     this.toggle();
   };
 
-  
   render() {
+    const { labels } = this.props.label;
+    const userId = this.props.auth.user._id;
     return (
       <>
         {this.state.budget_submit === "add" ? (
@@ -153,18 +153,20 @@ class BudgetModal extends Component {
               ? "Budget hinzufügen"
               : ["Budget ID ", this.state.id, " bearbeiten"]}
           </ModalHeader>
-          <ModalBody >
+          <ModalBody>
             <Form onSubmit={this.onSubmit}>
               <FormGroup>
                 <Label for="budget">Beschreibung</Label>
                 <Input
+                  className="inputModal"
                   type="text"
                   name="name"
                   id="budget"
                   defaultValue={this.state.name}
-                  placeholder="BEschreibung eingeben"
+                  placeholder="Beschreibung eingeben"
                   onChange={this.onChange}
                 />
+
                 <Row>
                   <Col className="bg-light" xs="6">
                     <Label for="budget_amount">Betrag</Label>
@@ -173,7 +175,6 @@ class BudgetModal extends Component {
                       <CurrencyInput
                         className="currencyInput"
                         decimalScale={2}
-
                         currency="true"
                         groupSeparator="."
                         placeholder="Betrag eingeben"
@@ -216,7 +217,8 @@ class BudgetModal extends Component {
                   </Col>
                   <Col className="bg-light " xs="6">
                     <Label for="budget_start">
-                      Ende <font size="2">(Standard: Kein Ende)</font>
+                      Ende{" "}
+                      <font className="annotation">(Standard: Kein Ende)</font>
                     </Label>
 
                     <InputGroup>
@@ -241,7 +243,21 @@ class BudgetModal extends Component {
                     </InputGroup>
                   </Col>
                 </Row>
-
+                <Label for="labels">Label</Label>
+                
+                  {labels.map(({ _id, label_name }) => (
+                    <div  key={_id}>
+                      <Input
+                        name="budget_label"
+                        type="radio"
+                        id="budget_label"
+                        onChange={this.onChange}
+                        value={_id}
+                      />
+                      <Label check>&nbsp;{label_name}</Label>
+                    </div> 
+                  ))}
+                
                 <Button color="dark" style={{ marginTop: "2rem" }} block>
                   {this.state.budget_submit === "add" ? "Hinzufügen" : "Ändern"}
                 </Button>
@@ -257,6 +273,7 @@ class BudgetModal extends Component {
 const mapStateToProps = (state) => ({
   budget: state.budget,
   auth: state.auth,
+  label: state.label,
 });
 
 export default connect(mapStateToProps, { addBudget, editBudget })(BudgetModal);
