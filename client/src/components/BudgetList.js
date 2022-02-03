@@ -14,7 +14,6 @@ import { calcCurrency } from "../actions/formatter";
 class BudgetList extends Component {
   componentDidMount() {
     const userId = this.props.auth.user._id;
-
     this.props.getLabels(userId);
     this.props.getBudgets(userId);
   }
@@ -46,8 +45,6 @@ class BudgetList extends Component {
       }
     }
   };
-
-  onEditClick = (id) => {};
 
   render() {
     const { budgets } = this.props.budget;

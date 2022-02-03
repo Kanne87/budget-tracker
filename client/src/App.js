@@ -19,9 +19,8 @@ class App extends Component {
     const { isAuthenticated } = this.props.auth;
     return (
       <Fragment>
-          <AppNavbar />
-          {isAuthenticated ? <Paginator /> : <Splash />}
-        {/* <footer>Footer</footer> */}
+        <AppNavbar />
+        {isAuthenticated ? <Paginator /> : <Splash />}
         <Footer />
       </Fragment>
     );

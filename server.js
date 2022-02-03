@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const config = require('config');
+const csvToJson = require('convert-csv-to-json');
+
 
 const path = require('path');
 
@@ -41,3 +43,8 @@ const port = process.env.PORT || 5000;  // Weil wir zu Horoku deployen wollen wi
 app.listen(port, () => console
    .log(`Server gestartet auf Port ${port}`)
 );
+
+let fileInputName = './client/src/files/file.CSV'; 
+let fileOutputName = './client/src/files/file.json';
+
+/* csvToJson.fieldDelimiter(';').generateJsonFileFromCsv(fileInputName,fileOutputName); */

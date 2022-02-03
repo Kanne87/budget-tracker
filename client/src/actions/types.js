@@ -18,3 +18,5 @@ export const GET_LABELS = 'GET_LABELS';
 export const ADD_LABEL = 'ADD_LABEL';
 export const DELETE_LABEL = 'DELETE_LABEL';
 export const EDIT_LABEL = 'EDIT_LABEL';
+export const IMPORT_ITEMS = 'IMPORT_ITEMS';
+export const IMPORT_LOADING = 'IMPORT_LOADING';

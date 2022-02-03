@@ -13,6 +13,10 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import { experimentalStyled as styled } from "@mui/material/styles";
 import { connect } from "react-redux";
 import { addBudget, editBudget } from "../actions/budgetActions";
 import CurrencyInput from "react-currency-input-field";
@@ -23,6 +27,12 @@ import { FaEdit } from "react-icons/fa";
 class BudgetModal extends Component {
   componentDidMount = () => {
     this.setEdit();
+    const Item = styled(Paper)(({ theme }) => ({
+      ...theme.typography.body2,
+      padding: theme.spacing(2),
+      textAlign: "center",
+      color: theme.palette.text.secondary,
+    }));
   };
 
   state = {
@@ -155,7 +165,7 @@ class BudgetModal extends Component {
           </ModalHeader>
           <ModalBody>
             <Form onSubmit={this.onSubmit}>
-              <FormGroup>
+              <div className="inputRow">
                 <Label for="budget">Beschreibung</Label>
                 <Input
                   className="inputModal"
@@ -166,102 +176,98 @@ class BudgetModal extends Component {
                   placeholder="Beschreibung eingeben"
                   onChange={this.onChange}
                 />
+              </div>
+              <Label for="budget_amount">Betrag</Label>
+              <div className="inputRow">
+                <InputGroup>
+                  <InputGroupText>€</InputGroupText>
+                  <CurrencyInput
+                    className="currencyInput"
+                    decimalScale={2}
+                    currency="true"
+                    groupSeparator="."
+                    placeholder="Betrag eingeben"
+                    name="budget_amount"
+                    id="budget_amount"
+                    defaultValue={this.state.budget_amount}
+                    onChange={this.onChange}
+                  />
+                </InputGroup>
+              </div>
+              <div className="inputRow">
+                <Label for="exampleSelect">Zahlungsintervall</Label>
+                <Input
+                  id="budget_intervall"
+                  name="budget_intervall"
+                  type="select"
+                  defaultValue={this.state.budget_intervall}
+                  onChange={this.onChange}
+                >
+                  <option>Monat</option>
+                  <option>Quartal</option>
+                  <option>Halbjahr</option>
+                  <option>Jahr</option>
+                </Input>
+              </div>
+              <div className="inputRow">
+                <Label for="budget_start">Beginn</Label>
 
-                <Row>
-                  <Col className="bg-light" xs="6">
-                    <Label for="budget_amount">Betrag</Label>
-                    <InputGroup>
-                      <InputGroupText>€</InputGroupText>
-                      <CurrencyInput
-                        className="currencyInput"
-                        decimalScale={2}
-                        currency="true"
-                        groupSeparator="."
-                        placeholder="Betrag eingeben"
-                        name="budget_amount"
-                        id="budget_amount"
-                        defaultValue={this.state.budget_amount}
-                        onChange={this.onChange}
-                      />
-                    </InputGroup>
-                  </Col>
-                  <Col className="bg-light " xs="6">
-                    <Label for="exampleSelect">Zahlungsintervall</Label>
+                <InputGroup>
+                  <Input
+                    type="date"
+                    name="budget_start"
+                    id="budget_start"
+                    defaultValue={this.state.budget_start}
+                    onChange={this.onChange}
+                  />
+                </InputGroup>
+              </div>
+              <div className="inputRow">
+                <Label for="budget_start">
+                  Ende <font className="annotation">(Standard: Kein Ende)</font>
+                </Label>
+
+                <InputGroup>
+                  <InputGroupText>
                     <Input
-                      id="budget_intervall"
-                      name="budget_intervall"
-                      type="select"
-                      defaultValue={this.state.budget_intervall}
-                      onChange={this.onChange}
-                    >
-                      <option>Monat</option>
-                      <option>Quartal</option>
-                      <option>Halbjahr</option>
-                      <option>Jahr</option>
-                    </Input>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col className="bg-light " xs="6">
-                    <Label for="budget_start">Beginn</Label>
-
-                    <InputGroup>
-                      <Input
-                        type="date"
-                        name="budget_start"
-                        id="budget_start"
-                        defaultValue={this.state.budget_start}
-                        onChange={this.onChange}
-                      />
-                    </InputGroup>
-                  </Col>
-                  <Col className="bg-light " xs="6">
-                    <Label for="budget_start">
-                      Ende{" "}
-                      <font className="annotation">(Standard: Kein Ende)</font>
-                    </Label>
-
-                    <InputGroup>
-                      <InputGroupText>
-                        <Input
-                          addon
-                          aria-label="Checkbox for following text input"
-                          type="checkbox"
-                          onChange={this.toggleEnd}
-                          checked={this.state.checkEnd}
-                        />
-                      </InputGroupText>
-                      <Input
-                        type="date"
-                        name="budget_end"
-                        id="budget_end"
-                        onChange={this.onChange}
-                        placeholder="Check it out"
-                        defaultValue={this.state.budget_end}
-                        disabled={this.state.checkEnd === false ? true : false}
-                      />
-                    </InputGroup>
-                  </Col>
-                </Row>
+                      addon
+                      aria-label="Checkbox for following text input"
+                      type="checkbox"
+                      onChange={this.toggleEnd}
+                      checked={this.state.checkEnd}
+                    />
+                  </InputGroupText>
+                  <Input
+                    type="date"
+                    name="budget_end"
+                    id="budget_end"
+                    onChange={this.onChange}
+                    placeholder="Check it out"
+                    defaultValue={this.state.budget_end}
+                    disabled={this.state.checkEnd === false ? true : false}
+                  />
+                </InputGroup>
+              </div>
+              <div className="inputRow">
                 <Label for="labels">Label</Label>
-                
-                  {labels.map(({ _id, label_name }) => (
-                    <div  key={_id}>
-                      <Input
-                        name="budget_label"
-                        type="radio"
-                        id="budget_label"
-                        onChange={this.onChange}
-                        value={_id}
-                      />
-                      <Label check>&nbsp;{label_name}</Label>
-                    </div> 
-                  ))}
-                
-                <Button color="dark" style={{ marginTop: "2rem" }} block>
-                  {this.state.budget_submit === "add" ? "Hinzufügen" : "Ändern"}
-                </Button>
-              </FormGroup>
+
+                {labels.map(({ _id, label_name }) => (
+                  <div key={_id}>
+                    <Input
+                      name="budget_label"
+                      type="radio"
+                      id="budget_label"
+                      onChange={this.onChange}
+                      value={_id}
+                      checked={this.state.budget_label === _id ? true : false}
+                    />
+                    <Label check>&nbsp;{label_name}</Label>
+                  </div>
+                ))}
+              </div>
+              <Button color="dark" style={{ marginTop: "2rem" }} block>
+                {this.state.budget_submit === "add" ? "Hinzufügen" : "Ändern"}
+              </Button>
             </Form>
           </ModalBody>
         </Modal>

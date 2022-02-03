@@ -17,11 +17,17 @@ import PropTypes from "prop-types";
 import { switchPage } from "../actions/budgetActions";
 
 class AppNavbar extends Component {
-  state = {
-    isOpen: false,
-    isOpenDropdown: false,
-    page: 0
-  };
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+      isOpen: false,
+      isOpenDropdown: false,
+      page: 0
+    }
+  }
+  
+ 
 
   static propTypes = {
     auth: PropTypes.object.isRequired,
@@ -92,7 +98,6 @@ class AppNavbar extends Component {
             <NavbarBrand href="/">Budget Tracker</NavbarBrand>
             <NavbarToggler
               onClick={this.toggle}
-              isOpen={this.state.isOpen}
             />
             <Collapse isOpen={this.state.isOpen} navbar >
               <Nav className="me-auto" navbar>
