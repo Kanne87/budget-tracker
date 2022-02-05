@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import Home from "../pages/Home";
 import Einstellungen from "../pages/Einstellungen";
 import Monitor from "../pages/Monitor";
+import Dashboard from "../pages/Dashboard";
 
 class Paginator extends Component {
   render() {
@@ -12,6 +13,7 @@ class Paginator extends Component {
         {page === 1 && <Home />}
         {page === 2 && <Monitor />}
         {page === 3 && <Einstellungen />}
+        {page === 4 && <Dashboard />}
       </Fragment>
     );
   }

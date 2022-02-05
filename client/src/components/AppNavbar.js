@@ -87,6 +87,11 @@ class AppNavbar extends Component {
             Monitor
           </NavLink>
         </NavItem>
+        <NavItem>
+          <NavLink onClick={this.switchPage} id="Dashboard" className="navListItem">
+            Dashboard
+          </NavLink>
+        </NavItem>
 
     </Fragment>
     );

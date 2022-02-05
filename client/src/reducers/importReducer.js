@@ -1,11 +1,16 @@
 import {
    IMPORT_ITEMS,
    IMPORT_LOADING,
+   UPLOAD_LOADING,
+   ADD_DEBITS,
+   GET_DEBITS,
  } from "../actions/types";
 
  const initialState = {
    imports: [],
+   debits: [],
    loading: false,
+   uploading: false,
    isImported: false
    
  };
@@ -24,6 +29,22 @@ import {
        return {
          ...state,
          loading: true,
+       };
+       case UPLOAD_LOADING:
+       return {
+         ...state,
+         uploading: true,
+       };
+       case ADD_DEBITS:
+       return {
+         ...state,
+         debits: [action.payload, ...state.debits],
+       };
+       case GET_DEBITS:
+       return {
+         ...state,
+         debits: action.payload,
+         loading: false,
        };
      default:
        return state;

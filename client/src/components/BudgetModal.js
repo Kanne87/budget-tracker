@@ -140,7 +140,6 @@ class BudgetModal extends Component {
         {this.state.budget_submit === "add" ? (
           <Button
             className="addButton shadow"
-            style={{ marginTop: "1rem" }}
             onClick={this.toggle}
           >
             Hinzufügen

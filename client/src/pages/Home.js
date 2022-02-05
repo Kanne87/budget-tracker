@@ -8,9 +8,13 @@ function Home() {
     <Fragment>
       <section>
         <header className="border">
-          <BudgetModal mode="add" />
-          <PaymentsIcon fontSize="large" className="btnColor"/> Budgets
-          <p className="subheader">Verwalte das Budget</p>
+          <div className="headerTitle">
+            <PaymentsIcon fontSize="large" className="btnColor" /> Budgets
+            <p className="subheader">Verwalte das Budget</p>
+          </div>
+          <div className="headerInput">
+            <BudgetModal mode="add" />
+          </div>
         </header>
         <main className="border">
           <BudgetList key="2" />
