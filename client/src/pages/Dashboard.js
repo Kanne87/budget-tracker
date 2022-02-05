@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import AdminList from "../components/AdminList";
 
 
+
 import PaymentsIcon from "@mui/icons-material/Payments";
 import { useSelector } from "react-redux";
 
@@ -21,10 +22,10 @@ function Dashboard() {
           </div>
         </header>
         <main className="border">
-       
+       sd
 
           
-          <AdminList />
+          {/* <AdminList /> */}
           </main>
       </section>
     </Fragment>

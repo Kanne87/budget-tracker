@@ -39,8 +39,10 @@ export const formatImportDate = (date) => {
   return finalResult;
 };
 
+// Formatiert den Betrag eines Imports
 export const formatImportAmount = (amount) => {
   if (amount !== "") {
    return parseInt(amount.replace(/,/g, ".")*100);
   } else { return ""}
 }
+
