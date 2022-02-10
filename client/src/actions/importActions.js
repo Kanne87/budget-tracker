@@ -4,6 +4,8 @@ import {
   UPLOAD_LOADING,
   ADD_DEBITS,
   GET_DEBITS,
+  EDIT_DEBIT,
+  UPDATE_DEBIT,
 } from "./types";
 import axios from "axios";
 import { tokenConfig } from "./authActions";
@@ -71,7 +73,19 @@ export const getDebits = (user_id) => (dispatch) => {
     .catch((err) =>
       dispatch(returnErrors(err.response.data, err.response.status))
     );
-
+}
+export const editDebit = (debit) => (dispatch, getState) => {
+  axios
+    .put(`/api/debits/${debit._id}`, debit, tokenConfig(getState))
+    .then((res) =>
+      dispatch({
+        type: EDIT_DEBIT,
+        payload: debit,
+      })
+    )
+    .catch((err) =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 }
 
 

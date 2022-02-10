@@ -4,11 +4,14 @@ import {
    UPLOAD_LOADING,
    ADD_DEBITS,
    GET_DEBITS,
+   EDIT_DEBIT,
+   UPDATE_DEBIT,
  } from "../actions/types";
 
  const initialState = {
    imports: [],
    debits: [],
+   debitToUpdate: {},
    loading: false,
    uploading: false,
    isImported: false
@@ -23,7 +26,6 @@ import {
          imports: action.payload,
          loading: false,
          isImported: true,
-         
        };
        case IMPORT_LOADING:
        return {
@@ -45,6 +47,25 @@ import {
          ...state,
          debits: action.payload,
          loading: false,
+       };
+       case EDIT_DEBIT:
+        const index = state.debits.findIndex(
+          (debit) => debit._id === action.payload._id
+        );
+        if (index > -1) {
+          return {
+            ...state,
+            debits: [
+              ...state.debits.slice(0, index),
+              action.payload,
+              ...state.debits.slice(index + 1),
+            ],
+          };
+       };
+       case UPDATE_DEBIT:
+       return {
+         ...state,
+         debitToUpdates: action.payload,
        };
      default:
        return state;

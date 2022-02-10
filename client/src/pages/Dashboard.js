@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from "react";
-import AdminList from "../components/AdminList";
+import DebitList from "../components/DebitList";
+import { Admin, Resource } from "react-admin";
+
 
 
 
@@ -22,10 +24,10 @@ function Dashboard() {
           </div>
         </header>
         <main className="border">
-       sd
+       
 
+          <DebitList />
           
-          {/* <AdminList /> */}
           </main>
       </section>
     </Fragment>

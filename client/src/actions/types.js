@@ -32,3 +32,18 @@ export const IMPORT_LOADING = 'IMPORT_LOADING';
 export const UPLOAD_LOADING = 'UPLOAD_LOADING';
 export const ADD_DEBITS = 'ADD_DEBITS';
 export const GET_DEBITS = 'GET_DEBITS';
+export const EDIT_DEBIT = 'EDIT_DEBIT';
+export const UPDATE_DEBIT = 'UPDATE_DEBIT';
+
+// Matches Reducer Actions
+export const GET_MATCHES = 'GET_MATCHES';
+export const ADD_MATCH = 'ADD_MATCH';
+export const DELETE_MATCH = 'DELETE_MATCH';
+
+// Modal Reducer Actions
+export const SHOW_MATCH_MODAL = 'SHOW_MATCH_MODAL';
+export const HIDE_MATCH_MODAL = 'HIDE_MATCH_MODAL';
+export const SHOW_BUDGET_MODAL = 'SHOW_BUDGET_MODAL';
+export const HIDE_BUDGET_MODAL = 'HIDE_BUDGET_MODAL';
+export const SHOW_BUDGET_DEBIT_MODAL = 'SHOW_BUDGET_DEBIT_MODAL';
+export const HIDE_BUDGET_DEBIT_MODAL = 'HIDE_BUDGET_DEBIT_MODAL';

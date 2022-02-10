@@ -48,6 +48,10 @@ const DebitSchema = new Schema({
    user_id: {
       type: String,
       default: ""
+   },
+   debit_budget_id: {
+      type: String,
+      default: ""
    }
 });
 

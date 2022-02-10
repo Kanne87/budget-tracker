@@ -51,7 +51,7 @@ export class ImportChecker extends Component {
       debit_bic: items["BIC (SWIFT-Code)"],
       debit_booked: items.Info,
       user_id: this.props.auth.user._id,
-      budget_id: "",
+      debit_budget_id: "",
     }));
     this.props.postDebits(rawImport);
   }

@@ -10,9 +10,6 @@ class Uploader extends Component {
     vscArray: "",
   };
 
-  componentDidMount = () => {
-    this.props.getDebits(this.props.auth.user._id);
-  }
 
   onChange(data) {
     this.setState({

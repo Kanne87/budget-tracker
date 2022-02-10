@@ -116,6 +116,16 @@ table {
   cursor: pointer;
 }
 
+.navbarBrand {
+  background: url("./files/logo_bt2.png") no-repeat !important;
+  background-size:  130px  !important;
+  width: 130px !important;
+  bottom:3px;
+  height:16px !important;
+  position: relative;
+  
+}
+
 .subheader {
   font-size: 1rem;
   font-weight: 400;
@@ -229,4 +239,9 @@ table {
   text-align: left;
   vertical-align: top;
   padding: 0 0.5rem 0 0;
+}
+
+.markedRow {
+  background-color: var(--shadow);
+ color: green;
 }

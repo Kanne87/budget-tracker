@@ -10,6 +10,7 @@ import pages from "../pages/pages";
 
 const initialState = {
   budgets: [],
+  budgetToUpdate: {},
   loading: false,
   edit: true,
   page: 1,
@@ -48,6 +49,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         budgets: [action.payload, ...state.budgets],
+        budgetToUpdate: action.payload,
       };
     case BUDGETS_LOADING:
       return {

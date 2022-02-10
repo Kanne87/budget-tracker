@@ -55,17 +55,18 @@ export const editBudget = (budget) => (dispatch, getState) => {
 };
 
 export const addBudget = (budget) => (dispatch, getState) => {
-  axios
+  return axios
     .post("/api/budgets", budget, tokenConfig(getState))
-    .then((res) =>
+    .then((res) => {
       dispatch({
         type: ADD_BUDGET,
         payload: res.data,
-      })
+      });return res.data}
     )
     .catch((err) =>
       dispatch(returnErrors(err.response.data, err.response.status))
     );
+    
 };
 
 export const setBudgetsLoading = () => {

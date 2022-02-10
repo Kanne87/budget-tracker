@@ -100,7 +100,7 @@ class AppNavbar extends Component {
       <Fragment>
         <Navbar dark expand="md" className="shadow navbar">
           
-            <NavbarBrand href="/">Budget Tracker</NavbarBrand>
+            <NavbarBrand href="/"><div className="navbarBrand"></div></NavbarBrand>
             <NavbarToggler
               onClick={this.toggle}
             />

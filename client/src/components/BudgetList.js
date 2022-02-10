@@ -3,6 +3,7 @@ import { Container, ListGroup, ListGroupItem, Button, Table } from "reactstrap";
 import { connect } from "react-redux";
 import { getBudgets, deleteBudget, editBudget } from "../actions/budgetActions";
 import { getLabels, getLabelColor } from "../actions/labelActions";
+import { deleteMatch, getMatches } from "../actions/matchActions";
 import { colors } from "../actions/constants";
 import PropTypes from "prop-types";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -12,14 +13,28 @@ import "../App.css";
 import { calcCurrency } from "../actions/formatter";
 
 class BudgetList extends Component {
-  componentDidMount() {
+  /* componentDidMount() {
     const userId = this.props.auth.user._id;
     this.props.getLabels(userId);
     this.props.getBudgets(userId);
-  }
+    this.props.getMatches(userId);
+  } */
 
-  onDeleteClick = (id) => {
-    this.props.deleteBudget(id);
+ 
+
+  onDeleteClick = async (id) => {
+    const { matches } = this.props.match;
+    var rArray = [];
+    const matchesToDelete = await matches.map((match) => {
+      if (match.budget_id === id) {
+        var matchToPush = match._id;
+        rArray.push(matchToPush);
+      }
+    });
+    await rArray.map((item) => {
+      this.props.deleteMatch(item);
+    });
+    await this.props.deleteBudget(id);
   };
 
   formatCurrency = (amount) => {
@@ -31,7 +46,6 @@ class BudgetList extends Component {
     if (labels.find((label) => label._id === id) === undefined) {
       console.log("Label nicht gefunden");
       return "";
-      
     } else {
       var colorId = {};
       if ((labels.length = 0)) {
@@ -104,6 +118,7 @@ const mapStateToProps = (state) => ({
   budget: state.budget,
   auth: state.auth,
   label: state.label,
+  match: state.match,
 });
 
 export default connect(mapStateToProps, {
@@ -111,4 +126,6 @@ export default connect(mapStateToProps, {
   deleteBudget,
   editBudget,
   getLabels,
+  getMatches,
+  deleteMatch,
 })(BudgetList);
