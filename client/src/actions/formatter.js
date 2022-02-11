@@ -41,6 +41,7 @@ export const formatImportDate = (date) => {
 
 // Formatiert das Datum nach dem Import
 export const formatOutputDate = (date) => {
+  if (date !== undefined) {
   const rawImport = date.toString();
   const day = rawImport.substr(9, 2);
   const month = rawImport.substr(4, 2);
@@ -51,7 +52,9 @@ export const formatOutputDate = (date) => {
     rawImport.substr(5, 2) +
     "." +
     rawImport.substr(0, 4);
-  return result;
+    return result;
+  }
+  
 };
 
 // Formatiert den Betrag eines Imports

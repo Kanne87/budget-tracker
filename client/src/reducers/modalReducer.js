@@ -1,47 +1,38 @@
-import { SHOW_MATCH_MODAL, HIDE_MATCH_MODAL, SHOW_BUDGET_MODAL, HIDE_BUDGET_MODAL, SHOW_BUDGET_DEBIT_MODAL, HIDE_BUDGET_DEBIT_MODAL } from "../actions/types";
+import { SET_MATCH_MODAL, UNSET_MATCH_MODAL, SET_BUDGET_MODAL, UNSET_BUDGET_MODAL } from "../actions/types";
 
 const initialState = {
   matchModal: false,
-  budgetModal: false,
-  budgetModalDebitId: null,
-  budgetModalBudgetId: null,
+  matchModalId: null,
+  budgetModalMode: null,
+  budgetModalId: null,
+
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case SHOW_MATCH_MODAL:
+    case SET_MATCH_MODAL:
       return {
         ...state,
         matchModal: true,
+        matchModalId: action.payload,
       };
-      case HIDE_MATCH_MODAL:
+      case UNSET_MATCH_MODAL:
       return {
         ...state,
         matchModal: false,
+        matchModalId: null,
       };
-      case SHOW_BUDGET_MODAL:
+      case SET_BUDGET_MODAL:
       return {
         ...state,
-        budgetModal: true,
-        budgetModalBudgetId: action.payload,
+        budgetModalMode: action.payload.mode,
+        budgetModalId: action.payload.id,
       };
-      case HIDE_BUDGET_MODAL:
+      case UNSET_BUDGET_MODAL:
       return {
         ...state,
-        budgetModal: false,
-        budgetModalBudgetId: null,
-      };
-      case SHOW_BUDGET_DEBIT_MODAL:
-      return {
-        ...state,
-        budgetModal: true,
-        budgetModalDebitId: action.payload,
-      };
-      case HIDE_BUDGET_DEBIT_MODAL:
-      return {
-        ...state,
-        budgetModal: false,
-        budgetModalDebitId: null,
+        budgetModalMode: null,
+        budgetModalId: null,
       };
     default:
       return state;

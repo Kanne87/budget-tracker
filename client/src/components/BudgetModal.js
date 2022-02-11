@@ -17,8 +17,11 @@ import { connect } from "react-redux";
 import { addBudget, editBudget } from "../actions/budgetActions";
 import { editDebit } from "../actions/importActions";
 import { addMatch } from "../actions/matchActions";
-import { showBudgetDebitModal, hideBudgetDebitModal, showBudgetModal, hideBudgetModal } from "../actions/modalActions";
-import { showMatchModal } from "../actions/modalActions";
+import {
+  setBudgetModal,
+  unsetBudgetModal,
+} from "../actions/modalActions";
+import { setMatchModal } from "../actions/modalActions";
 import CurrencyInput from "react-currency-input-field";
 import { format } from "date-fns";
 import { FaEdit } from "react-icons/fa";
@@ -28,24 +31,24 @@ class BudgetModal extends Component {
     super(props);
     this.state = {
       id: "",
-      
+      mode: this.props.mode,
       modal: false,
+      show: false,
       name: "",
       budget_amount: "",
       budget_intervall: "Monat",
-      budget_submit: this.props.mode,
       budget_start: format(new Date(), "yyyy-MM-dd"),
       budget_end: "",
       budget_label: "",
       userId: "",
       checkEnd: false,
     };
+    this.toogle = this.toggle.bind(this);
   }
 
   componentDidMount = () => {
     this.props.mode === "edit" && this.setEdit();
     this.props.mode === "transfer" && this.setTransfer();
-
   };
 
   setTransfer = () => {
@@ -63,7 +66,6 @@ class BudgetModal extends Component {
       debit: {
         _id: this.props.debit._id,
       },
-      
     });
   };
 
@@ -91,13 +93,6 @@ class BudgetModal extends Component {
     });
   };
 
-  toggle = () => {
-    this.setState({
-      modal: !this.state.modal,
-      checkEnd: false,
-    });
-  };
-
   toggleEnd = () => {
     this.setState({
       checkEnd: !this.state.checkEnd,
@@ -111,7 +106,7 @@ class BudgetModal extends Component {
   onSubmit = async (e) => {
     e.preventDefault();
     const userId = this.props.auth.user._id;
-    if (this.state.budget_submit === "add") {
+    if (this.state.mode === "add") {
       const amountFixed = this.state.budget_amount;
       const newBudget = {
         name: this.state.name,
@@ -125,7 +120,7 @@ class BudgetModal extends Component {
       };
       this.props.addBudget(newBudget);
     }
-    if (this.state.budget_submit === "edit") {
+    if (this.state.mode === "edit") {
       const amountFixed = this.state.budget_amount;
       const editBudget = {
         _id: this.state.id,
@@ -140,7 +135,7 @@ class BudgetModal extends Component {
       };
       this.props.editBudget(editBudget);
     }
-    if (this.state.budget_submit === "transfer") {
+    if (this.state.mode === "transfer") {
       const amountFixed = this.state.budget_amount;
       const debit = this.props.debit;
       const newBudget = {
@@ -162,43 +157,89 @@ class BudgetModal extends Component {
       };
       console.log(newMatch);
       await this.props.addMatch(newMatch);
+      await this.props.setMatchModal(newMatch.debit_id);
     }
     //Add item via addItem
     /* this.toggle(); */
-    var method = this.props.showMatchModal;
-    method();
     
+  };
+
+  onClick = async (e) => {
+    const modal = {
+      mode: e.target.name,
+      id: e.target.id,
+    };
+    await this.props.setBudgetModal(modal);
+    const showMode = modal.mode === this.props.modal.budgetModalMode;
+    const showId = modal.id === this.props.modal.budgetModalId;
+    if (modal.mode === "transfer") {
+      this.setState({
+        show: showId && showMode,
+      });
+    } else if (modal.mode === "add") {
+      this.setState({
+        show: showMode,
+      });
+    } else if (modal.mode === "edit") {
+      this.setState({
+        show: showId && showMode,
+      });
+      console.log("yo");
+    } else {
+      this.setState({
+        show: false,
+      });
+    }
+  };
+
+  toggle = () => {
+    this.setState({
+      show: false,
+    });
+    this.props.unsetBudgetModal();
   };
 
   render() {
     const { labels } = this.props.label;
     const userId = this.props.auth.user._id;
+    const debitId = this.state.mode === "transfer" ? this.props.debit._id : "";
     return (
       <>
-        {this.state.budget_submit === "add" && (
-          <Button className="addButton shadow" onClick={this.props.showBudgetModal}>
+        {this.state.mode === "add" && (
+          <Button
+            className="addButton shadow"
+            name={this.props.mode}
+            onClick={this.onClick}
+          >
             Hinzufügen
           </Button>
         )}
-        {this.state.budget_submit === "edit" && (
-          <FaEdit
-            className="deleteButton"
-            size={20}
-            onClick={this.toggle}
-          ></FaEdit>
+        {this.state.mode === "edit" && (
+          <Button
+            name={this.props.mode}
+            id={this.props.editId}
+            onClick={this.onClick}
+          >
+            Edit
+          </Button>
         )}
-        {this.state.budget_submit === "transfer" && (
-          <Button className="deleteButton" id={this.props.debit._id} onClick={this.props.showBudgetDebitModal}>
+        {this.state.mode === "transfer" && (
+          <Button
+            className="deleteButton"
+            name={this.props.mode}
+            id={this.props.debit._id}
+            onClick={this.onClick}
+          >
             +
           </Button>
         )}
         <Modal
           className="addModal"
-          isOpen={this.state.budget_submit === "transfer" ? this.props.debit._id === this.props.modal.budgetModalDebitId : this.props.modal.budgetModal}
-          toggle={this.props.hideBudgetDebitModal}
+          isOpen={this.state.show}
+          toggle={this.toggle}
         >
-          <ModalHeader toggle={this.props.hideBudgetDebitModal}>
-            {this.state.budget_submit === "edit"
+          <ModalHeader toggle={this.toggle}>
+            {this.state.mode === "edit"
               ? ["Budget ID ", this.state.id, " bearbeiten"]
               : "Budget hinzufügen"}
           </ModalHeader>
@@ -302,9 +343,9 @@ class BudgetModal extends Component {
                   </div>
                 ))}
               </div>
-              <MatchModal />
-              <Button onClick={this.props.showBudgetDebitModal} color="dark" style={{ marginTop: "0.4rem" }} block>
-                {this.state.budget_submit === "edit" ? "Ändern" : "Hinzufügen"}
+              <MatchModal debitId={debitId} toggleHandler={this.toggle} />
+              <Button color="dark" style={{ marginTop: "0.4rem" }} block>
+                {this.state.mode === "edit" ? "Ändern" : "Hinzufügen"}
               </Button>
             </Form>
           </ModalBody>
@@ -327,9 +368,7 @@ export default connect(mapStateToProps, {
   editBudget,
   editDebit,
   addMatch,
-  showMatchModal,
-  showBudgetModal,
-  hideBudgetModal,
-  showBudgetDebitModal,
-  hideBudgetDebitModal,
+  setMatchModal,
+  setBudgetModal,
+  unsetBudgetModal,
 })(BudgetModal);
