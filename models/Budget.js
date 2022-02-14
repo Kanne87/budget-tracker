@@ -35,6 +35,14 @@ const BudgetSchema = new Schema({
    userId: {
       type: String,
       default: ""
+   },
+   filter: {
+      type: String,
+      default: ""
+   },
+   filterText: {
+      type: String,
+      default: ""
    }
 });
 

@@ -157,7 +157,7 @@ class BudgetModal extends Component {
       };
       console.log(newMatch);
       await this.props.addMatch(newMatch);
-      await this.props.setMatchModal(newMatch.debit_id);
+      await this.props.setMatchModal(newMatch);
     }
     //Add item via addItem
     /* this.toggle(); */

@@ -3,6 +3,7 @@ import { SET_MATCH_MODAL, UNSET_MATCH_MODAL, SET_BUDGET_MODAL, UNSET_BUDGET_MODA
 const initialState = {
   matchModal: false,
   matchModalId: null,
+  matchModalBudgetId: null,
   budgetModalMode: null,
   budgetModalId: null,
 
@@ -14,13 +15,15 @@ export default function (state = initialState, action) {
       return {
         ...state,
         matchModal: true,
-        matchModalId: action.payload,
+        matchModalId: action.payload.debit_id,
+        matchModalBudgetId: action.payload.budget_id,
       };
       case UNSET_MATCH_MODAL:
       return {
         ...state,
         matchModal: false,
         matchModalId: null,
+        matchModalBudgetId: null,
       };
       case SET_BUDGET_MODAL:
       return {
